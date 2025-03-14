@@ -21,8 +21,8 @@ class DatabaseSeeder extends Seeder
 
 
         $user = User::create([
-            'name' => 'dynamaite',
-            'email' => 'dynamaite@gmail.com',
+            'name' => 'dynamite',
+            'email' => 'dynamite@gmail.com',
             'password' => Hash::make('123'),
         ]);
         if ($user) {

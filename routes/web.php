@@ -21,8 +21,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('settings/appearance', Appearance::class)->name('settings.appearance');
 });
 
-Route::view('chatRoom', 'page/chatRoom')
-
+Route::view('chatroom', 'page/chatroom')
     ->name('chatroom');
 Route::view('video', 'page/video')
     ->name('video');
