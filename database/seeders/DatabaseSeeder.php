@@ -32,6 +32,6 @@ class DatabaseSeeder extends Seeder
         ]);
         $user->assignRole(['admin', "user", "doctor"]);
 
-        User::factory(10)->create();
+        // User::factory(10)->create();
     }
 }
