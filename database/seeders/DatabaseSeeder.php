@@ -21,11 +21,10 @@ class DatabaseSeeder extends Seeder
 
 
         $user = User::create([
-            'name' => 'dynmaite',
-            'email' => 'dynmaite@gmail.com',
+            'name' => 'dynamaite',
+            'email' => 'dynamaite@gmail.com',
             'password' => Hash::make('123'),
         ]);
- 
         if ($user) {
             $user->assignRole(['admin', 'user', 'doctor']);
         }
