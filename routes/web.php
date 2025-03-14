@@ -21,10 +21,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('settings/appearance', Appearance::class)->name('settings.appearance');
 });
 
-Route::view('chatroom', 'page/chatroom')
-    ->name('chatroom');
+Route::view('chat', 'page/chat')
+    ->name('chat');
 Route::view('video', 'page/video')
     ->name('video');
 Route::view('article', 'page/article')
     ->name('article');
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
