@@ -21,4 +21,11 @@ Route::middleware(['auth'])->group(function () {
     Route::get('settings/appearance', Appearance::class)->name('settings.appearance');
 });
 
+Route::view('chatRoom', 'page/chatRoom')
+
+    ->name('chatroom');
+Route::view('video', 'page/video')
+    ->name('video');
+Route::view('article', 'page/article')
+    ->name('article');
 require __DIR__.'/auth.php';
