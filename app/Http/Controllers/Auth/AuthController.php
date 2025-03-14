@@ -11,9 +11,7 @@ use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Validation\Rules\Password as PasswordRules;
-use Spatie\Permission\Models\Role;
-use Spatie\Permission\Models\Permission;
-
+ 
 class AuthController extends Controller
 {
     // عرض نموذج تسجيل الدخول
@@ -54,18 +52,7 @@ class AuthController extends Controller
     // معالجة التسجيل
     public function register(Request $request)
     {
-        if (!Role::where("name", "admin")) {
-            Role::create(['name' => 'admin']);
-        }
-        if (!Role::where("name", "user")) {
-            Role::create(['name' => 'user']);
-        }
-        if (!Permission::where("name", "active")) {
-            Permission::create(['name' => 'active']);
-        }
-        if (!Permission::where("name", "not_active")) {
-            Permission::create(['name' => 'not_active']);
-        }
+
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
@@ -161,12 +148,6 @@ class AuthController extends Controller
     }
 
     // التحقق من حالة المصادقة
-    public function check()
-    {
-        return response()->json([
-            'authenticated' => Auth::check(),
-            'user' => Auth::user()
-        ]);
-    }
+     
 
 }
