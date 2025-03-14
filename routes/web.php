@@ -1,30 +1,22 @@
 <?php
 
-use App\Livewire\Settings\Appearance;
-use App\Livewire\Settings\Password;
-use App\Livewire\Settings\Profile;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\AuthController;
 
 Route::get('/', function () {
-    return view('welcome');
-})->name('home');
+    return view('home');
+})->name("home");
 
-Route::view('dashboard', 'dashboard')
-    ->middleware(['auth', 'verified'])
-    ->name('dashboard');
 
-Route::middleware(['auth'])->group(function () {
-    Route::redirect('settings', 'settings/profile');
-
-    Route::get('settings/profile', Profile::class)->name('settings.profile');
-    Route::get('settings/password', Password::class)->name('settings.password');
-    Route::get('settings/appearance', Appearance::class)->name('settings.appearance');
-});
-
-Route::view('chat', 'page/chat')
-    ->name('chat');
-Route::view('video', 'page/video')
+Route::post('/logout', [AuthController::class, 'logout'])
+    ->middleware('auth')
+    ->name('logout');
+ 
+Route::view('video', 'video')
     ->name('video');
-Route::view('article', 'page/article')
+Route::view('article', 'article')
     ->name('article');
+
 require __DIR__ . '/auth.php';
+require __DIR__.'/chatAi.php';
+require __DIR__.'/admin.php';

@@ -15,9 +15,7 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
 
-        $this->call([
-            RoleSeeder::class,
-        ]);
+
 
 
         $user = User::create([
@@ -25,9 +23,7 @@ class DatabaseSeeder extends Seeder
             'email' => 'dynamite@gmail.com',
             'password' => Hash::make('123'),
         ]);
-        if ($user) {
-            $user->assignRole(['admin', 'user', 'doctor']);
-        }
+
 
         $user = User::create([
             'name' => 'admin',
@@ -35,8 +31,6 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('123'),
         ]);
 
-        if ($user) {
-            $user->assignRole(['admin', 'user', 'doctor']);
-        }
+
      }
 }
