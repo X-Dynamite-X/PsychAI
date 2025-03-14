@@ -7,11 +7,16 @@ Route::get('/', function () {
     return view('home');
 })->name("home");
 
+Route::get('/test', function () {
+    return view('test');
+})->name("test");
 
 Route::post('/logout', [AuthController::class, 'logout'])
     ->middleware('auth')
     ->name('logout');
- 
+
+Route::view('category', 'category')
+    ->name('category');
 Route::view('video', 'video')
     ->name('video');
 Route::view('article', 'article')

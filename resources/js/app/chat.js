@@ -33,20 +33,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     console.error(xhr.responseText);
                 },
             });
-
-            // addMessage(message, "user");
-            // textarea.value = "";
-            // textarea.style.height = "60px";
-
-            // Simulate AI response (replace with actual API call)
-            // showTypingIndicator();
-            // setTimeout(() => {
-            //     removeTypingIndicator();
-            //     addMessage(
-            //         "شكراً لمشاركتك. كيف يمكنني مساعدتك بشكل أفضل؟",
-            //         "ai"
-            //     );
-            // }, 1500);
+ 
         }
     });
 
