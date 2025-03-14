@@ -1,57 +1,133 @@
 @extends('layouts.app')
 
+@section('styles')
+<style>
+    .subtitle {
+        font-size: 22px;
+        color: #403540;
+        line-height: 1.5;
+        margin-bottom: 20px;
+        text-align: center;
+        margin-top: 80px;
+    }
+
+    .article-section {
+        text-align: left;
+        width: 60%;
+        margin: 30px auto;
+        padding: 20px 25px;
+        border-radius: 10px;
+        border-bottom: 2px dashed #5E875E;
+        transition: transform 0.2s;
+        background-color: white;
+    }
+
+    .article-section:hover {
+        transform: translateY(-5px);
+        background-color: #FCEBD4;
+    }
+
+    .article-title {
+        font-size: 24px;
+        font-weight: bold;
+        color: #403540;
+        margin-bottom: 10px;
+    }
+
+    .article-buttons {
+        display: flex;
+        gap: 10px;
+        margin: 15px 0;
+    }
+
+    .btn-chat, .btn-articles {
+        padding: 8px 16px;
+        border-radius: 20px;
+        cursor: pointer;
+        font-size: 14px;
+        transition: all 0.2s;
+    }
+
+    .btn-chat {
+        background-color: #5E875E;
+        color: white;
+    }
+
+    .btn-chat:hover {
+        background-color: #4a694a;
+    }
+
+    .btn-articles {
+        border: 2px solid #5E875E;
+        color: #5E875E;
+    }
+
+    .btn-articles:hover {
+        background-color: #5E875E;
+        color: white;
+    }
+
+    .article-description {
+        font-size: 16px;
+        color: #403540;
+        margin-top: 10px;
+    }
+
+    .arrow {
+        font-size: 24px;
+        margin-top: 10px;
+        color: #5E875E;
+    }
+</style>
+@endsection
 
 @section('content')
- <div class="container mx-auto px-4 py-8">
-    <h1 class="text-3xl font-bold text-gray-900 text-center mb-8">تصفح مجموعة متنوعة من الاضطرابات النفسية للبدء</h1>
+<div class="subtitle">
+    تصفح مجموعة متنوعة من الاضطرابات النفسية للبدء
+    <div class="arrow">↓</div>
+</div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <!-- Anxiety -->
-        <div class="bg-white p-6 rounded-lg shadow-lg">
-            <h2 class="text-xl font-semibold text-gray-900 mb-4">القلق</h2>
-            <p class="text-gray-700 mb-4">حالة صحية نفسية تتميز بقلق أو خوف أو توتر مفرط. يمكن أن تظهر جسديًا (مثل التعرق، تسارع ضربات القلب) وذهنيًا (مثل الأفكار المتطفلة)، وغالبًا ما تتداخل مع الحياة اليومية.</p>
-            <div class="flex space-x-4">
-                <a href="#" class="text-blue-500 hover:text-blue-700">الدردشة بالذكاء الاصطناعي</a>
-                <a href="#" class="text-blue-500 hover:text-blue-700">مقالات</a>
-            </div>
-        </div>
-
-        <!-- Depression -->
-        <div class="bg-white p-6 rounded-lg shadow-lg">
-            <h2 class="text-xl font-semibold text-gray-900 mb-4">الاكتئاب</h2>
-            <p class="text-gray-700 mb-4">اضطراب مزاجي يتميز بمشاعر مستمرة من الحزن واليأس وفقدان الاهتمام بالأنشطة التي كانت ممتعة. يمكن أن يؤثر على النوم والشهية والطاقة والأداء العام.</p>
-            <div class="flex space-x-4">
-                <a href="#" class="text-blue-500 hover:text-blue-700">الدردشة بالذكاء الاصطناعي</a>
-                <a href="#" class="text-blue-500 hover:text-blue-700">مقالات</a>
-            </div>
-        </div>
-
-        <!-- Burnout -->
-        <div class="bg-white p-6 rounded-lg shadow-lg">
-            <h2 class="text-xl font-semibold text-gray-900 mb-4">الإرهاق</h2>
-            <p class="text-gray-700 mb-4">حالة من الإرهاق العاطفي والجسدي والعقلي الناجم عن الإجهاد المطول، غالبًا ما يكون مرتبطًا بالعمل. تشمل الأعراض التعب والانفصال وانخفاض الفعالية.</p>
-            <div class="flex space-x-4">
-                <a href="#" class="text-blue-500 hover:text-blue-700">الدردشة بالذكاء الاصطناعي</a>
-                <a href="#" class="text-blue-500 hover:text-blue-700">مقالات</a>
-            </div>
-        </div>
-
-        <!-- Impostor Syndrome -->
-        <div class="bg-white p-6 rounded-lg shadow-lg">
-            <h2 class="text-xl font-semibold text-gray-900 mb-4">متلازمة المحتال</h2>
-            <p class="text-gray-700 mb-4">نمط نفسي يشكك فيه الأفراد في قدراتهم ويخافون من أن يتم الكشف عنهم كـ "محتالين"، على الرغم من وجود أدلة على كفاءتهم وإنجازاتهم.</p>
-            <div class="flex space-x-4">
-                <a href="#" class="text-blue-500 hover:text-blue-700">الدردشة بالذكاء الاصطناعي</a>
-                <a href="#" class="text-blue-500 hover:text-blue-700">مقالات</a>
-            </div>
-        </div>
+<div class="article-section">
+    <div class="article-title"><em>القلق</em></div>
+    <div class="article-buttons">
+        <a href="{{ route('chat') }}" class="btn-chat">الدردشة مع الذكاء الاصطناعي</a>
+        <a href="#" class="btn-articles">المقالات</a>
     </div>
-
-    <div class="text-center mt-8">
-        <a href="#" class="text-blue-500 hover:text-blue-700">تصفح القائمة الكاملة</a>
+    <div class="article-description">
+        حالة صحية نفسية تتميز بقلق أو خوف أو توتر مفرط. يمكن أن تظهر جسديًا (مثل التعرق، تسارع ضربات القلب) وذهنيًا (مثل الأفكار المتطفلة)، وغالبًا ما تتداخل مع الحياة اليومية.
     </div>
 </div>
-@endsection("content")
 
+<div class="article-section">
+    <div class="article-title"><em>الاكتئاب</em></div>
+    <div class="article-buttons">
+        <a href="{{ route('chat') }}" class="btn-chat">الدردشة مع الذكاء الاصطناعي</a>
+        <a href="#" class="btn-articles">المقالات</a>
+    </div>
+    <div class="article-description">
+        اضطراب مزاجي يتميز بمشاعر مستمرة من الحزن واليأس وفقدان الاهتمام بالأنشطة التي كانت ممتعة. يمكن أن يؤثر على النوم والشهية والطاقة والأداء العام.
+    </div>
+</div>
 
-{{--  --}}
+<div class="article-section">
+    <div class="article-title"><em>الإرهاق</em></div>
+    <div class="article-buttons">
+        <a href="{{ route('chat') }}" class="btn-chat">الدردشة مع الذكاء الاصطناعي</a>
+        <a href="#" class="btn-articles">المقالات</a>
+    </div>
+    <div class="article-description">
+        حالة من الإرهاق العاطفي والجسدي والعقلي الناجم عن الإجهاد المطول، غالبًا ما يكون مرتبطًا بالعمل. تشمل الأعراض التعب والانفصال وانخفاض الفعالية.
+    </div>
+</div>
+
+<div class="article-section">
+    <div class="article-title"><em>متلازمة المحتال</em></div>
+    <div class="article-buttons">
+        <a href="{{ route('chat') }}" class="btn-chat">الدردشة مع الذكاء الاصطناعي</a>
+        <a href="#" class="btn-articles">المقالات</a>
+    </div>
+    <div class="article-description">
+        نمط نفسي يشكك فيه الأفراد في قدراتهم ويخافون من أن يتم الكشف عنهم كـ "محتالين"، على الرغم من وجود أدلة على كفاءتهم وإنجازاتهم.
+    </div>
+</div>
+@endsection
