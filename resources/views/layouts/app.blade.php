@@ -8,6 +8,13 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@1,700&display=swap');
+        @import url('https://fonts.cdnfonts.com/css/cascadia-code');
+        @import url('https://fonts.cdnfonts.com/css/cascadia-code');
+
+
+        * {
+            font-family: 'Cascadia Code';
+        }
 
         body {
             background-color: #FCEBDC;
@@ -38,7 +45,13 @@
             align-items: center;
             justify-content: space-between;
             height: 64px;
+            margin: 12px;
+            height: auto;
+            align-items: end;
         }
+
+
+
 
         .logo-section img {
             height: 48px;
@@ -57,6 +70,8 @@
             font-weight: 500;
             text-decoration: none;
             transition: color 0.2s;
+            color: #81AD74;
+            font-size: 16px;
         }
 
         .nav-link:hover {
@@ -101,14 +116,15 @@
         }
 
         .btn-primary {
-            background-color: #059669;
-            color: white;
+
             padding: 0.5rem 1rem;
             border-radius: 0.5rem;
-            font-size: 0.875rem;
             font-weight: 500;
             text-decoration: none;
             transition: background-color 0.2s;
+            background-color: #81AD74;
+            color: #FBE9D6;
+            font-size: 16px;
         }
 
         .btn-primary:hover {
@@ -130,6 +146,29 @@
             background-color: #059669;
             color: white;
         }
+
+.nav-link {
+	color: #81AD74;
+	font-size: 16px;
+}
+.btn-primary {
+	background-color: #81AD74;
+	color: #FBE9D6;
+	font-size: 16px;
+}
+.nav-content {
+	margin: 12px;
+	height: auto;
+	align-items: end;
+}
+.logo-section img {
+	height: 96px;
+}
+.btn-secondary {
+	border: 2px solid #81AD74;
+	color: #81AD74;
+	font-size: 16px;
+}
 
         @media (max-width: 768px) {
 
