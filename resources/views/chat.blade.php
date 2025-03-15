@@ -56,8 +56,8 @@
 
         /* Chat Area Styling */
         .chat-area {
-        display: flex;
-        flex-direction: column;
+            display: flex;
+            flex-direction: column;
             border-radius: 1rem;
             padding: 2rem;
             display: flex;
@@ -75,6 +75,10 @@
             border-radius: 1rem;
             max-width: 80%;
             animation: slideIn 0.3s ease;
+
+                margin-top: 12px;
+
+
         }
 
         .user-message {
@@ -103,15 +107,15 @@
             justify-content: center;
         }
 
-            .messages-container {
-        flex: 1;
-        overflow-y: auto;
-        padding: 1rem;
-        margin-bottom: 1rem;
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
-    }
+        .messages-container {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
 
         .message-text {
             line-height: 1.6;
@@ -308,9 +312,16 @@
         <div class="past-conversations">
             <h3>Previous Conversations</h3>
             <ul class="conversations-list">
-                @foreach($roomChats as $chat)
-                    <li>{{ Str::limit($chat->message, 30) }}</li>
-                @endforeach
+                {{-- @foreach ($roomChats as $chat) --}}
+                    <li>chat 1</li>
+                    <li>chat 2</li>
+                    <li>chat 3</li>
+                    <li>chat 4</li>
+                    <li>chat 5</li>
+                    <li>chat 6</li>
+                    <li>chat 7</li>
+
+                {{-- @endforeach --}}
             </ul>
         </div>
 
@@ -340,7 +351,5 @@
 @endsection
 
 @section('script')
-    <script>
-      
-    </script>
+    <script></script>
 @endsection
