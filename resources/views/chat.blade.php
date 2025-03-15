@@ -273,7 +273,7 @@
             <div class="message ai-message">
 
                 <div class="message-content">
-                    <div class="message-text">Hello! How can I help you today?</div>
+                    <div class="message-text">What would you like to chat about?</div>
                     <div class="message-time">12:00 PM</div>
                 </div>
             </div>
