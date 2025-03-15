@@ -23,6 +23,11 @@ class DatabaseSeeder extends Seeder
             'email' => 'dynamite@gmail.com',
             'password' => Hash::make('123'),
         ]);
+        $user = User::create([
+            'name' => 'dynamite2',
+            'email' => 'abdmoklss@gmail.com',
+            'password' => Hash::make('123'),
+        ]);
 
 
         $user = User::create([

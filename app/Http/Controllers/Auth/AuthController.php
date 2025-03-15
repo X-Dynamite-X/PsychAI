@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Validation\Rules\Password as PasswordRules;
- 
+
 class AuthController extends Controller
 {
     // عرض نموذج تسجيل الدخول
@@ -139,7 +139,7 @@ class AuthController extends Controller
             ? response()->json([
                 'success' => true,
                 'message' => 'Password has been reset successfully',
-                'redirect' => route('login') // إضافة رابط إعادة التوجيه
+                'redirect' => route('login')
             ])
             : response()->json([
                 'success' => false,
@@ -148,6 +148,6 @@ class AuthController extends Controller
     }
 
     // التحقق من حالة المصادقة
-     
+
 
 }

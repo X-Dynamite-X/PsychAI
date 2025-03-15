@@ -20,7 +20,7 @@ Route::middleware('guest')->group(function () {
         ->name('password.email');
     Route::get('/reset-password/{token}', [AuthController::class, 'showResetPasswordForm'])
         ->name('password.reset');
-    Route::post('/reset-password', [AuthController::class, 'resetPassword'])
+    Route::post(', [AuthController::class, 'resetPassword'])
         ->name('password.update');
 });
 

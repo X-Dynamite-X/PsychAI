@@ -19,7 +19,7 @@
         border-radius: 10px;
         border-bottom: 2px dashed #5E875E;
         transition: transform 0.2s;
-        background-color: white;
+        
     }
 
     .article-section:hover {
