@@ -3,12 +3,12 @@
 <style>
     main {
         display: grid;
-        grid-template-columns: 1fr 300px;
+        grid-template-columns: 300px 1fr;
         gap: 40px;
         padding: 40px;
         background-color: #FCEBDC;
         min-height: calc(100vh - 4rem);
-        direction: rtl;
+        direction: ltr;
     }
 
     .past-conversations {
@@ -58,7 +58,7 @@
 
     .past-conversations li:hover {
         background-color: #4a6b4a;
-        transform: translateX(-5px);
+        transform: translateX(5px);
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     }
 
@@ -68,7 +68,7 @@
         justify-content: center;
         align-items: center;
         padding: 40px;
-       
+
     }
 
     .chat-area h2 {
@@ -185,31 +185,32 @@
 
 @section('content')
     <main>
+            <div class="past-conversations">
+            <h3>Previous Conversations</h3>
+            <div class="conversations-list">
+                <li>New Conversation</li>
+                <li>Anxiety & Stress</li>
+                <li>Depression</li>
+            </div>
+        </div>
         <div class="chat-area">
-            <h2>بماذا تود التحدث؟</h2>
+            <h2>What would you like to talk about?</h2>
             <div class="message-input-container">
-                <textarea placeholder="أنا أعاني من.."></textarea>
+                <textarea placeholder="I'm experiencing..."></textarea>
                 <button class="send-button">
                     <i class="fas fa-paper-plane"></i>
-                    <span>إرسال</span>
+                    <span>Send</span>
                 </button>
             </div>
             <div class="options">
-                <button>القلق</button>
-                <button>الاكتئاب</button>
-                <button>الاحتراق النفسي</button>
-                <button>متلازمة المحتال</button>
-                <button>المزيد</button>
+                <button>Anxiety</button>
+                <button>Depression</button>
+                <button>Burnout</button>
+                <button>Impostor Syndrome</button>
+                <button>More</button>
             </div>
         </div>
 
-        <div class="past-conversations">
-            <h3>المحادثات السابقة</h3>
-            <div class="conversations-list">
-                <li>محادثة جديدة</li>
-                <li>القلق والتوتر</li>
-                <li>الاكتئاب</li>
-            </div>
-        </div>
+
     </main>
 @endsection
