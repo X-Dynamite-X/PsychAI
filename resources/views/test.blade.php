@@ -1,216 +1,303 @@
 @extends('layouts.app')
-@section("styles")
-<style>
-    main {
-        display: grid;
-        grid-template-columns: 300px 1fr;
-        gap: 40px;
-        padding: 40px;
-        background-color: #FCEBDC;
-        min-height: calc(100vh - 4rem);
-        direction: ltr;
-    }
-
-    .past-conversations {
-        /* background-color: rgba(255, 255, 255, 0.7); */
-        padding: 25px;
-        border-radius: 15px;
-        height: fit-content;
-        border: 2px solid #5E875E;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    }
-
-    .past-conversations h3 {
-        color: #403540;
-        font-size: 20px;
-        margin-bottom: 20px;
-        text-align: center;
-        font-weight: bold;
-        border-bottom: 2px solid #5E875E;
-        padding-bottom: 10px;
-    }
-
-    .conversations-list {
-        display: flex;
-        flex-direction: column;
-        gap: 15px;
-    }
-
-    .past-conversations li {
-        list-style: none;
-        background-color: #5E875E;
-        color: white;
-        padding: 15px 20px;
-        border-radius: 10px;
-        cursor: pointer;
-        font-size: 16px;
-        transition: all 0.3s ease;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        display: flex;
-        align-items: center;
-        gap: 10px;
-    }
-
-    .past-conversations li:before {
-        content: '💬';
-        font-size: 18px;
-    }
-
-    .past-conversations li:hover {
-        background-color: #4a6b4a;
-        transform: translateX(5px);
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    }
-
-    .chat-area {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        padding: 40px;
-
-    }
-
-    .chat-area h2 {
-        color: #403540;
-        font-size: 28px;
-        margin-bottom: 30px;
-        font-family: 'Courier Prime', monospace;
-        font-weight: bold;
-    }
-
-    .message-input-container {
-        width: 100%;
-        max-width: 800px;
-        display: flex;
-        gap: 15px;
-        margin-bottom: 35px;
-    }
-
-    .chat-area textarea {
-        flex: 1;
-        height: 60px;
-        padding: 15px 20px;
-        border: 2px solid #5E875E;
-        border-radius: 15px;
-        resize: none;
-        font-size: 16px;
-        background-color: #FCEBDC;
-        transition: all 0.3s ease;
-    }
-
-    .chat-area textarea:focus {
-        outline: none;
-        border-color: #403540;
-        box-shadow: 0 0 0 3px rgba(94, 135, 94, 0.2);
-        height: 100px;
-    }
-
-    .chat-area textarea::placeholder {
-        color: #666;
-    }
-
-    .send-button {
-        background-color: #5E875E;
-        color: white;
-        border: none;
-        padding: 0 25px;
-        border-radius: 15px;
-        cursor: pointer;
-        font-size: 16px;
-        transition: all 0.3s ease;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-    }
-
-    .send-button:hover {
-        background-color: #4a6b4a;
-        transform: translateY(-2px);
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    }
-
-    .chat-area .options {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 15px;
-        justify-content: center;
-        max-width: 800px;
-    }
-
-    .chat-area .options button {
-        background-color: #FCEBDC;
-        border: 2px solid #5E875E;
-        padding: 12px 25px;
-        border-radius: 25px;
-        cursor: pointer;
-        color: #403540;
-        font-size: 15px;
-        transition: all 0.3s ease;
-        min-width: 130px;
-    }
-
-    .chat-area .options button:hover {
-        background-color: #5E875E;
-        color: white;
-        transform: translateY(-2px);
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    }
-
-    @media (max-width: 968px) {
+@section('styles')
+    <style>
         main {
-            grid-template-columns: 1fr;
-            gap: 30px;
-            padding: 20px;
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 2rem;
+            padding: 2rem;
+            background-color: #FCEBDC;
+            min-height: calc(100vh - 4rem);
+            max-width: 1920px;
+            margin: 0 auto;
         }
 
-        .chat-area {
-            padding: 20px;
+        /* Sidebar Styling */
+        .past-conversations {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(8px);
+            padding: 1.5rem;
+            border-radius: 1rem;
+            height: fit-content;
+            border: 1px solid #81AD74;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
         }
 
-        .message-input-container {
+        .past-conversations h3 {
+            color: #2D3748;
+            font-size: 1.25rem;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+            text-align: center;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid #81AD74;
+        }
+
+        .conversations-list {
+            display: flex;
             flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .conversations-list li {
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            background: rgba(255, 255, 255, 0.5);
+            border: 1px solid rgba(94, 135, 94, 0.1);
+        }
+
+        .conversations-list li:hover {
+            background: rgba(94, 135, 94, 0.1);
+            transform: translateX(4px);
+        }
+
+        /* Chat Area Styling */
+        .chat-area {
+        display: flex;
+        flex-direction: column;
+            border-radius: 1rem;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            border: 1px solid #81AD74;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Message Styling */
+        .message {
+            display: flex;
+            gap: 1rem;
+            padding: 1rem;
+            border-radius: 1rem;
+            max-width: 80%;
+            animation: slideIn 0.3s ease;
+        }
+
+        .user-message {
+            margin-left: auto;
+            border: 1px solid #81AD74;
+
+            color: #81AD74;
+            box-shadow: 0 2px 4px #81AD74;
+        }
+
+        .ai-message {
+            margin-right: auto;
+            background: #81AD74;
+            color: #fff;
+            border: 1px solid #81AD74;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .message-avatar {
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 50%;
+            background: #F7FAFC;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+            .messages-container {
+        flex: 1;
+        overflow-y: auto;
+        padding: 1rem;
+        margin-bottom: 1rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+        .message-text {
+            line-height: 1.6;
+            font-size: 1rem;
+        }
+
+        .message-time {
+            font-size: 0.75rem;
+            opacity: 0.8;
+            margin-top: 0.5rem;
+        }
+
+        /* Input Area Styling */
+        .message-input-container {
+            margin-top: auto;
+            display: flex;
+            gap: 1rem;
+            padding: 1rem;
+            position: sticky;
+            background: #FCEBDC;
+            border-radius: 1rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+
+        }
+
+        .message-input-container textarea {
+            flex: 1;
+            padding: 0.75rem 1rem;
+            border: 1px solid #81AD74;
+            border-radius: 0.5rem;
+            resize: none;
+            font-size: 1rem;
+            line-height: 1.5;
+            min-height: 2.5rem;
+            max-height: 10rem;
+            transition: all 0.3s ease;
+        }
+
+        .message-input-container textarea:focus {
+            outline: none;
+            border-color: #5E875E;
+            box-shadow: 0 0 0 3px rgba(94, 135, 94, 0.1);
         }
 
         .send-button {
-            padding: 15px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            background: #5E875E;
+            color: white;
+            border: none;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
         }
 
-        .chat-area .options button {
-            min-width: calc(50% - 10px);
+        .send-button:hover {
+            background: #4a6b4a;
+            transform: translateY(-1px);
         }
-    }
-</style>
+
+        .send-button:active {
+            transform: translateY(1px);
+        }
+
+        /* Typing Indicator */
+        .typing-indicator {
+            display: flex;
+            gap: 0.25rem;
+            padding: 0.5rem;
+        }
+
+        .typing-indicator span {
+            width: 0.5rem;
+            height: 0.5rem;
+            background: #5E875E;
+            border-radius: 50%;
+            animation: bounce 1.4s infinite ease-in-out;
+        }
+
+        .typing-indicator span:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .typing-indicator span:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes bounce {
+
+            0%,
+            80%,
+            100% {
+                transform: translateY(0);
+            }
+
+            40% {
+                transform: translateY(-6px);
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 968px) {
+            main {
+                grid-template-columns: 1fr;
+                padding: 1rem;
+                gap: 1rem;
+            }
+
+            .past-conversations {
+                display: none;
+            }
+
+            .message {
+                max-width: 90%;
+            }
+
+            .message-input-container {
+                padding: 0.75rem;
+            }
+
+            .send-button {
+                padding: 0.75rem 1rem;
+            }
+        }
+    </style>
 @endsection
 
 @section('content')
     <main>
-            <div class="past-conversations">
+        <div class="past-conversations">
             <h3>Previous Conversations</h3>
             <div class="conversations-list">
                 <li>New Conversation</li>
                 <li>Anxiety & Stress</li>
                 <li>Depression</li>
+                <li>Sleep Issues</li>
+                <li>Relationship Advice</li>
             </div>
         </div>
+
         <div class="chat-area">
-            <h2>What would you like to talk about?</h2>
+            <!-- Messages will appear here -->
+
+            <div class="message ai-message">
+
+                <div class="message-content">
+                    <div class="message-text">Hello! How can I help you today?</div>
+                    <div class="message-time">12:00 PM</div>
+                </div>
+            </div>
+
             <div class="message-input-container">
-                <textarea placeholder="I'm experiencing..."></textarea>
+                <textarea placeholder="Type your message here..." rows="1"></textarea>
                 <button class="send-button">
                     <i class="fas fa-paper-plane"></i>
                     <span>Send</span>
                 </button>
             </div>
-            <div class="options">
-                <button>Anxiety</button>
-                <button>Depression</button>
-                <button>Burnout</button>
-                <button>Impostor Syndrome</button>
-                <button>More</button>
-            </div>
         </div>
-
-
     </main>
+@endsection
+
+@section('script')
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const textarea = document.querySelector('textarea');
+
+            textarea.addEventListener('input', function() {
+                this.style.height = 'auto';
+                this.style.height = (this.scrollHeight) + 'px';
+            });
+        });
+    </script>
 @endsection
