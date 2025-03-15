@@ -1,129 +1,215 @@
 @extends('layouts.app')
 @section("styles")
 <style>
-    .subtitle {
-        font-size: 22px;
+    main {
+        display: grid;
+        grid-template-columns: 1fr 300px;
+        gap: 40px;
+        padding: 40px;
+        background-color: #FCEBDC;
+        min-height: calc(100vh - 4rem);
+        direction: rtl;
+    }
+
+    .past-conversations {
+        /* background-color: rgba(255, 255, 255, 0.7); */
+        padding: 25px;
+        border-radius: 15px;
+        height: fit-content;
+        border: 2px solid #5E875E;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .past-conversations h3 {
         color: #403540;
-        line-height: 1.5;
+        font-size: 20px;
         margin-bottom: 20px;
         text-align: center;
-        margin-top: 80px;
-    }
-
-    .category-section {
-        text-align: left;
-        width: 60%;
-        margin: 30px auto;
-        padding: 20px 25px;
-        border-radius: 10px;
-        border-bottom: 2px dashed #5E875E;
-        transition: transform 0.2s;
-    }
-
-    .category-section:hover {
-        transform: translateY(-5px);
-        background-color: #FCEBD4;
-    }
-
-    .category-title {
-        font-size: 24px;
         font-weight: bold;
-        color: #5E875E;
+        border-bottom: 2px solid #5E875E;
+        padding-bottom: 10px;
     }
 
-    .category-buttons {
+    .conversations-list {
         display: flex;
-        gap: 10px;
-        margin-top: 10px;
+        flex-direction: column;
+        gap: 15px;
     }
 
-    .btn-chat, .btn-articles {
-        padding: 5px 10px;
-        border-radius: 5px;
-        font-size: 14px;
+    .past-conversations li {
+        list-style: none;
+        background-color: #5E875E;
+        color: white;
+        padding: 15px 20px;
+        border-radius: 10px;
         cursor: pointer;
-        transition: all 0.2s;
-    }
-
-    .btn-chat {
-        background-color: #5E875E;
-        color: white;
-    }
-
-    .btn-chat:hover {
-        background-color: #4a6b4a;
-    }
-
-    .btn-articles {
-        border: 2px solid #5E875E;
-        color: #5E875E;
-        background-color: transparent;
-    }
-
-    .btn-articles:hover {
-        background-color: #5E875E;
-        color: white;
-    }
-
-    .category-description {
         font-size: 16px;
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .past-conversations li:before {
+        content: '💬';
+        font-size: 18px;
+    }
+
+    .past-conversations li:hover {
+        background-color: #4a6b4a;
+        transform: translateX(-5px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .chat-area {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 40px;
+       
+    }
+
+    .chat-area h2 {
         color: #403540;
-        margin-top: 10px;
+        font-size: 28px;
+        margin-bottom: 30px;
+        font-family: 'Courier Prime', monospace;
+        font-weight: bold;
+    }
+
+    .message-input-container {
+        width: 100%;
+        max-width: 800px;
+        display: flex;
+        gap: 15px;
+        margin-bottom: 35px;
+    }
+
+    .chat-area textarea {
+        flex: 1;
+        height: 60px;
+        padding: 15px 20px;
+        border: 2px solid #5E875E;
+        border-radius: 15px;
+        resize: none;
+        font-size: 16px;
+        background-color: #FCEBDC;
+        transition: all 0.3s ease;
+    }
+
+    .chat-area textarea:focus {
+        outline: none;
+        border-color: #403540;
+        box-shadow: 0 0 0 3px rgba(94, 135, 94, 0.2);
+        height: 100px;
+    }
+
+    .chat-area textarea::placeholder {
+        color: #666;
+    }
+
+    .send-button {
+        background-color: #5E875E;
+        color: white;
+        border: none;
+        padding: 0 25px;
+        border-radius: 15px;
+        cursor: pointer;
+        font-size: 16px;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .send-button:hover {
+        background-color: #4a6b4a;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .chat-area .options {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+        justify-content: center;
+        max-width: 800px;
+    }
+
+    .chat-area .options button {
+        background-color: #FCEBDC;
+        border: 2px solid #5E875E;
+        padding: 12px 25px;
+        border-radius: 25px;
+        cursor: pointer;
+        color: #403540;
+        font-size: 15px;
+        transition: all 0.3s ease;
+        min-width: 130px;
+    }
+
+    .chat-area .options button:hover {
+        background-color: #5E875E;
+        color: white;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    @media (max-width: 968px) {
+        main {
+            grid-template-columns: 1fr;
+            gap: 30px;
+            padding: 20px;
+        }
+
+        .chat-area {
+            padding: 20px;
+        }
+
+        .message-input-container {
+            flex-direction: column;
+        }
+
+        .send-button {
+            padding: 15px;
+        }
+
+        .chat-area .options button {
+            min-width: calc(50% - 10px);
+        }
     }
 </style>
 @endsection
 
 @section('content')
-<div class="subtitle">
-    Browse a variety of mental disorders to get started
-    <div class="arrow">↓</div>
-</div>
+    <main>
+        <div class="chat-area">
+            <h2>بماذا تود التحدث؟</h2>
+            <div class="message-input-container">
+                <textarea placeholder="أنا أعاني من.."></textarea>
+                <button class="send-button">
+                    <i class="fas fa-paper-plane"></i>
+                    <span>إرسال</span>
+                </button>
+            </div>
+            <div class="options">
+                <button>القلق</button>
+                <button>الاكتئاب</button>
+                <button>الاحتراق النفسي</button>
+                <button>متلازمة المحتال</button>
+                <button>المزيد</button>
+            </div>
+        </div>
 
-<div class="category-section">
-    <div class="category-title"><em>Anxiety</em></div>
-    <div class="category-buttons">
-        <span class="btn-chat">AI Chat</span>
-        <span class="btn-articles">Articles</span>
-    </div>
-    <div class="category-description">
-        A mental health condition characterized by excessive worry, fear, or tension.
-    </div>
-</div>
-
-<div class="category-section">
-    <div class="category-title"><em>Depression</em></div>
-    <div class="category-buttons">
-        <span class="btn-chat">AI Chat</span>
-        <span class="btn-articles">Articles</span>
-    </div>
-    <div class="category-description">
-        A mood disorder marked by persistent feelings of sadness and loss of interest.
-    </div>
-</div>
-
-<div class="category-section">
-    <div class="category-title"><em>Burnout</em></div>
-    <div class="category-buttons">
-        <span class="btn-chat">AI Chat</span>
-        <span class="btn-articles">Articles</span>
-    </div>
-    <div class="category-description">
-        A state of emotional, physical, and mental exhaustion caused by prolonged stress.
-    </div>
-</div>
-
-<div class="category-section">
-    <div class="category-title"><em>Impostor Syndrome</em></div>
-    <div class="category-buttons">
-        <span class="btn-chat">AI Chat</span>
-        <span class="btn-articles">Articles</span>
-    </div>
-    <div class="category-description">
-        A psychological pattern where individuals doubt their abilities and fear being exposed as frauds.
-    </div>
-</div>
-
-<div class="subtitle">
-    <a href="#" class="btn-articles">Go to the full category list</a>
-</div>
+        <div class="past-conversations">
+            <h3>المحادثات السابقة</h3>
+            <div class="conversations-list">
+                <li>محادثة جديدة</li>
+                <li>القلق والتوتر</li>
+                <li>الاكتئاب</li>
+            </div>
+        </div>
+    </main>
 @endsection
