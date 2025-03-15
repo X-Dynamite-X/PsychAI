@@ -251,6 +251,55 @@
                 padding: 0.75rem 1rem;
             }
         }
+
+        /* إضافة تنسيقات جديدة للعرض الأولي */
+        .initial-chat {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+            margin: 2rem 0;
+        }
+
+        .options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+
+        .options button {
+            padding: 1rem 2rem;
+            background: #81AD74;
+            color: white;
+            border: none;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 1rem;
+        }
+
+        .options button:hover {
+            background: #5E875E;
+            transform: translateY(-2px);
+        }
+
+        .chat-area {
+            position: relative;
+        }
+
+        .messages-container {
+            display: none;
+        }
+
+        .message-input-container {
+            position: relative;
+            bottom: 0;
+            left: 0;
+            right: 0;
+        }
     </style>
 @endsection
 
@@ -258,28 +307,29 @@
     <main>
         <div class="past-conversations">
             <h3>Previous Conversations</h3>
-            <div class="conversations-list">
-                <li>New Conversation</li>
-                <li>Anxiety & Stress</li>
-                <li>Depression</li>
-                <li>Sleep Issues</li>
-                <li>Relationship Advice</li>
-            </div>
+            <ul class="conversations-list">
+                @foreach($roomChats as $chat)
+                    <li>{{ Str::limit($chat->message, 30) }}</li>
+                @endforeach
+            </ul>
         </div>
 
         <div class="chat-area">
-            <!-- Messages will appear here -->
+            <div class="messages-container"></div>
 
-            <div class="message ai-message">
-
-                <div class="message-content">
-                    <div class="message-text">What would you like to chat about?</div>
-                    <div class="message-time">12:00 PM</div>
+            <div class="initial-chat">
+                <h2>What would you like to talk about?</h2>
+                <div class="options">
+                    <button class="topic-btn">Anxiety</button>
+                    <button class="topic-btn">Depression</button>
+                    <button class="topic-btn">Burnout</button>
+                    <button class="topic-btn">Impostor Syndrome</button>
+                    <button class="topic-btn">More</button>
                 </div>
             </div>
 
             <div class="message-input-container">
-                <textarea placeholder="Type your message here..." rows="1"></textarea>
+                <textarea placeholder="I am experiencing..." rows="1"></textarea>
                 <button class="send-button">
                     <i class="fas fa-paper-plane"></i>
                     <span>Send</span>
@@ -291,13 +341,6 @@
 
 @section('script')
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const textarea = document.querySelector('textarea');
-
-            textarea.addEventListener('input', function() {
-                this.style.height = 'auto';
-                this.style.height = (this.scrollHeight) + 'px';
-            });
-        });
+      
     </script>
 @endsection
