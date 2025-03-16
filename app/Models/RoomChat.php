@@ -16,6 +16,7 @@ class RoomChat extends Model
     // علاقة مع المستخدم
     protected $fillable = [
         'room_name', // الحقول التي يمكن تعبئتها
+            'user_id',
     ];
 
     // علاقة واحدة إلى كثير مع الرسائل

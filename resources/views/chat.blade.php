@@ -449,7 +449,7 @@
 @endsection
 
 @section('content')
-    <main>
+    <main >
        @include("chat.newRoom")
     </main>
 @endsection

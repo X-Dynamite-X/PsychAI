@@ -5,6 +5,7 @@ $(document).ready(function () {
     const $messagesContainer = $(".messages-container");
     const $initialChat = $(".initial-chat");
     const $topicButtons = $(".topic-btn");
+    const $roomId = $("#room-id");
 
     // Handle topic button clicks
     $topicButtons.on("click", function () {
@@ -40,13 +41,15 @@ $(document).ready(function () {
 
             addMessage(message, "user");
             showTypingIndicator();
+            const roomId = $roomId.attr("data-room_id");
 
             $.ajax({
-                url: "/chat",
+                url: `/chat`,
                 type: "POST",
                 data: {
                     message: message,
                     _token: $('meta[name="csrf-token"]').attr("content"),
+                    room_id: roomId,
                 },
                 success: function (response) {
                     removeTypingIndicator();
@@ -114,6 +117,7 @@ $(document).ready(function () {
     // Handle conversation list clicks
     $(".old-room").on("click", function () {
         const chatId = $(this).data("id");
+        $roomId.attr("data-room_id", chatId);
         $.ajax({
             url: `/chat/${chatId}`,
             type: "GET",
@@ -139,7 +143,7 @@ $(document).ready(function () {
                 $("main").empty();
                 $("main").html(response.newRoomHtml);
                 console.log("done");
-                
+
                 // $(".initial-chat").show();
                 // $(".messages-container").empty().hide();
             },

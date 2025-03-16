@@ -87,15 +87,22 @@ class ChatController extends Controller
             }
 
             $aiResponse = $responseData['candidates'][0]['content']['parts'][0]['text'];
-
-            // Save chat if user is authenticated
-            if (auth()->check()) {
-                RoomChat::create([
+            if ($request->input('room_id') !== "newRoom") {
+                $roomChat = RoomChat::find($request->input('room_id'));
+            } else {
+                $roomChat = RoomChat::create([
+                    'room_name' => $message,
                     'user_id' => auth()->id(),
-                    'message' => $message,
-                    'response' => $aiResponse
                 ]);
             }
+            // Save chat if user is authenticated
+
+            $roomChat->messages()->create([
+                'sender_id' => auth()->id(),
+                'message_text' => $message,
+                'reseve_text' => $aiResponse
+            ]);
+
 
             return response()->json([
                 'success' => true,

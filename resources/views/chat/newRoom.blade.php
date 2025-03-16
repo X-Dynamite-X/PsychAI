@@ -1,5 +1,6 @@
 @include("chat.pastConversations")
-  <div class="chat-area">
+
+  <div class="chat-area" id="room-id" data-room_id="newRoom">
       <div class="messages-container"></div>
 
       <div class="initial-chat">
