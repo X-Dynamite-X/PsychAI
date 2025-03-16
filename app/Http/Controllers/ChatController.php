@@ -61,47 +61,25 @@ class ChatController extends Controller
                 return $this->errorResponse('Message cannot be empty');
             }
 
-            $response = $this->client->post($this->baseUrl, [
-                'query' => ['key' => $this->apiKey],
-                'json' => [
-                    'contents' => [
-                        [
-                            'parts' => [
-                                ['text' => $message]
-                            ]
-                        ]
-                    ],
-                    'generationConfig' => [
-                        'temperature' => 0.7,
-                        'topK' => 40,
-                        'topP' => 0.95,
-                        'maxOutputTokens' => 1024,
-                    ]
-                ]
-            ]);
+            $aiResponse = $this->requestDataInAi($message);
 
-            $responseData = json_decode($response->getBody(), true);
-
-            if (empty($responseData['candidates'][0]['content']['parts'][0]['text'])) {
-                return $this->errorResponse('Invalid response from AI');
-            }
-
-            $aiResponse = $responseData['candidates'][0]['content']['parts'][0]['text'];
-            if ($request->input('room_id') !== "newRoom") {
+            if ($request->input('room_id') !== "newRoom" && auth()->check()) {
                 $roomChat = RoomChat::find($request->input('room_id'));
-            } else {
+            } else if (auth()->check()) {
                 $roomChat = RoomChat::create([
                     'room_name' => $message,
                     'user_id' => auth()->id(),
                 ]);
             }
             // Save chat if user is authenticated
+            if (auth()->check()) {
 
-            $roomChat->messages()->create([
-                'sender_id' => auth()->id(),
-                'message_text' => $message,
-                'reseve_text' => $aiResponse
-            ]);
+                $roomChat->messages()->create([
+                    'sender_id' => auth()->id(),
+                    'message_text' => $message,
+                    'reseve_text' => $aiResponse
+                ]);
+            }
 
 
             return response()->json([
@@ -122,7 +100,36 @@ class ChatController extends Controller
             return $this->errorResponse('An unexpected error occurred');
         }
     }
+    protected function requestDataInAi($message)
+    {
 
+        $response = $this->client->post($this->baseUrl, [
+            'query' => ['key' => $this->apiKey],
+            'json' => [
+                'contents' => [
+                    [
+                        'parts' => [
+                            ['text' => $message]
+                        ]
+                    ]
+                ],
+                'generationConfig' => [
+                    'temperature' => 0.7,
+                    'topK' => 40,
+                    'topP' => 0.95,
+                    'maxOutputTokens' => 1024,
+                ]
+            ]
+        ]);
+        $responseData = json_decode($response->getBody(), true);
+
+        if (empty($responseData['candidates'][0]['content']['parts'][0]['text'])) {
+            return $this->errorResponse('Invalid response from AI');
+        }
+        $aiResponse = $responseData['candidates'][0]['content']['parts'][0]['text'];
+
+        return $aiResponse;
+    }
     protected function errorResponse($message, $code = 500)
     {
 
