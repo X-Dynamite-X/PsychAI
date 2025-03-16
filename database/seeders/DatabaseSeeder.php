@@ -38,7 +38,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
 
 
-            RoomsTableSeeder::class,
+            // RoomsTableSeeder::class,
         ]);
 
 

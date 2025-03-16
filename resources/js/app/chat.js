@@ -7,24 +7,24 @@ $(document).ready(function () {
     const $topicButtons = $(".topic-btn");
     const $roomId = $("#room-id");
 
-    // Handle topic button clicks
+    // معالجة النقر على أزرار المواضيع
     $topicButtons.on("click", function () {
         const topic = $(this).text();
-        $messageInput.val(`I would like to talk about ${topic}`);
+        $messageInput.val(`أود أن أتحدث عن ${topic}`);
         sendMessage();
     });
 
-    // Auto-resize textarea
+    // تغيير حجم مربع النص تلقائ
     $messageInput.on("input", function () {
         const maxHeight = 200;
         $(this).css("height", "auto");
         $(this).css("height", Math.min(this.scrollHeight, maxHeight) + "px");
     });
 
-    // Handle send button click
+    // معالجة النقر على زر الإرسال
     $sendButton.on("click", sendMessage);
 
-    // Handle enter key press
+    // معالجة ضغط مفتاح الإدخال
     $messageInput.on("keypress", function (e) {
         if (e.key === "Enter" && !e.shiftKey) {
             e.preventDefault();
@@ -35,13 +35,14 @@ $(document).ready(function () {
     function sendMessage() {
         const message = $messageInput.val().trim();
         if (message) {
-            // Hide initial chat and show messages container
+            // إخفاء المحادثة الأولية وإظهار حاوية الرسائل
             $initialChat.hide();
             $messagesContainer.show();
 
             addMessage(message, "user");
             showTypingIndicator();
             const roomId = $roomId.attr("data-room_id");
+            const isNewRoom = roomId === "newRoom";
 
             $.ajax({
                 url: `/chat`,
@@ -50,20 +51,45 @@ $(document).ready(function () {
                     message: message,
                     _token: $('meta[name="csrf-token"]').attr("content"),
                     room_id: roomId,
+                    is_new_room: isNewRoom,
                 },
                 success: function (response) {
                     removeTypingIndicator();
                     if (response.success) {
                         addMessage(response.message, "ai");
+
+                        // إذا كانت محادثة جديدة، قم بإضافتها إلى قائمة المحادثات
+                        if (
+                            isNewRoom &&
+                            response.room_name &&
+                            response.room_id
+                        ) {
+                            const newRoomHtml = `
+                                <li class="old-room" data-id="${response.room_id}">${response.room_name}</li>
+                            `;
+                            $roomId.attr("data-room_id", response.room_id);
+
+                            // إضافة المحادثة الجديدة إلى بداية قائمة المحادثات
+                            $(".conversations-list").prepend(newRoomHtml);
+
+                            // تحديث room_id للمحادثة الحالية
+                            $roomId.attr("data-room_id", response.room.id);
+
+                            // إعادة تفعيل الأحداث للمحادثة الجديدة
+                            $(".old-room")
+                                .last()
+                                .on("click", function () {
+                                    const chatId = $(this).data("id");
+                                    $roomId.attr("data-room_id", chatId);
+                                    loadChatHistory(chatId);
+                                });
+                        }
                     }
                 },
                 error: function (xhr) {
                     removeTypingIndicator();
                     console.error(xhr.responseText);
-                    addMessage(
-                        "Sorry, an error occurred. Please try again.",
-                        "ai"
-                    );
+                    addMessage("عذراً، حدث خطأ. يرجى المحاولة مرة أخرى.", "ai");
                 },
             });
 
@@ -92,7 +118,7 @@ $(document).ready(function () {
     }
 
     function addMessage(message, type) {
-        const time = new Date().toLocaleTimeString("en-US", {
+        const time = new Date().toLocaleTimeString("ar-SA", {
             hour: "2-digit",
             minute: "2-digit",
         });
@@ -114,24 +140,13 @@ $(document).ready(function () {
         $messagesContainer.scrollTop($messagesContainer[0].scrollHeight);
     }
 
-    // Handle conversation list clicks
+    // معالجة النقر على قائمة المحادثات
     $(".old-room").on("click", function () {
         const chatId = $(this).data("id");
         $roomId.attr("data-room_id", chatId);
-        $.ajax({
-            url: `/chat/${chatId}`,
-            type: "GET",
-            success: function (response) {
-                $(".initial-chat").hide();
-                 $(".messages-container").empty().show();
-                 $(".messages-container").html(response.message_html);
-                scrollToBottom();
-            },
-            error: function (xhr) {
-                console.error(xhr.responseText);
-            },
-        });
+        loadChatHistory(chatId);
     });
+
     $(".new-room").on("click", function () {
         $.ajax({
             url: "/chat",
@@ -142,10 +157,6 @@ $(document).ready(function () {
             success: function (response) {
                 $("main").empty();
                 $("main").html(response.newRoomHtml);
-                console.log("done");
-
-                // $(".initial-chat").show();
-                // $(".messages-container").empty().hide();
             },
             error: function (xhr) {
                 console.error(xhr.responseText);
@@ -153,8 +164,25 @@ $(document).ready(function () {
         });
     });
 
-    // Move existing messages to the new container
-      $(".chat-area .message")
-          .not(".message-input-container")
-          .appendTo($messagesContainer);
+    // نقل الرسائل الموجودة إلى الحاوية الجديدة
+    $(".chat-area .message")
+        .not(".message-input-container")
+        .appendTo($messagesContainer);
+
+    // دالة مساعدة لتحميل سجل المحادثة
+    function loadChatHistory(chatId) {
+        $.ajax({
+            url: `/chat/${chatId}`,
+            type: "GET",
+            success: function (response) {
+                $(".initial-chat").hide();
+                $(".messages-container").empty().show();
+                $(".messages-container").html(response.message_html);
+                scrollToBottom();
+            },
+            error: function (xhr) {
+                console.error(xhr.responseText);
+            },
+        });
+    }
 });

@@ -445,12 +445,33 @@
             background: #5E875E;
             transform: translateY(-2px);
         }
+
+        .conversations-list-new {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+     .conversations-list-new  li {
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            /* background: rgba(255, 255, 255, 0.5); */
+            border: 1px solid #81AD74
+        }
+
+        .conversations-list li:hover {
+            background: #81AD74;
+            transform: translateX(4px);
+        }
+
     </style>
 @endsection
 
 @section('content')
-    <main >
-       @include("chat.newRoom")
+    <main>
+        @include('chat.newRoom')
     </main>
 @endsection
 

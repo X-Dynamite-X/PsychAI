@@ -61,8 +61,7 @@ class ChatController extends Controller
                 return $this->errorResponse('Message cannot be empty');
             }
 
-            // تحديد معرف المستخدم (مسجل أو زائر)
-            $userId = auth()->check() ? auth()->id() : session()->getId();
+             $userId = auth()->check() ? auth()->id() : session()->getId();
 
             // تحديد الغرفة أو استخدام guest للزوار
             if (auth()->check()) {
@@ -95,7 +94,11 @@ class ChatController extends Controller
 
             return response()->json([
                 'success' => true,
-                'message' => $aiResponse
+                'message' => $aiResponse,
+
+                "room_name" => $roomChat->room_name,
+                "room_id" => $roomChat->id,
+
             ]);
         } catch (\Exception $e) {
             Log::error('Chat System Error', [
