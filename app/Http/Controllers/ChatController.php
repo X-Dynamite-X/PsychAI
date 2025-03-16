@@ -55,7 +55,7 @@ class ChatController extends Controller
 
     public function store(Request $request)
     {
-        try {
+        // try {
             $message = $request->input('message');
             if (empty($message)) {
                 return $this->errorResponse('Message cannot be empty');
@@ -103,13 +103,13 @@ class ChatController extends Controller
                 "room_id" => $roomChat->id,
 
             ]);
-        } catch (\Exception $e) {
-            Log::error('Chat System Error', [
-                'message' => $e->getMessage(),
-                'trace' => $e->getTraceAsString()
-            ]);
-            return $this->errorResponse('An unexpected error occurred');
-        }
+        // } catch (\Exception $e) {
+        //     Log::error('Chat System Error', [
+        //         'message' => $e->getMessage(),
+        //         'trace' => $e->getTraceAsString()
+        //     ]);
+        //     return $this->errorResponse('An unexpected error occurred');
+        // }
     }
     protected function requestDataInAi($message, $roomId, $userId , $newRoom)
     {
@@ -147,16 +147,13 @@ class ChatController extends Controller
             }
         }
         if ($newRoom) {
-            $message = "أنت طبيب نفسي إكلينيكي متخصص في علاج القلق، الاكتئاب، الإرهاق، ومتلازمة المحتال. لديك خبرة تزيد عن 10 سنوات في هذا المجال. استخدم أسلوب العلاج السلوكي المعرفي (CBT) في إجاباتك. أجب بأسلوب احترافي ومختصر، مع التركيز على النقاط الأساسية. استخدم لغة واضحة ومناسبة للجمهور العام. قم بتنظيم الردود باستخدام الفقرات القصيرة والقوائم المرقمة عند الحاجة. قم في استخدام صيغة المذكر في اجاباتك. قم في الرد على الرسالة التالية:"
-                . $message;
+            $message = "أنت طبيب نفسي إكلينيكي متخصص في علاج القلق، الاكتئاب، الإرهاق، ومتلازمة المحتال. لديك خبرة تزيد عن 10 سنوات في هذا المجال. استخدم أسلوب العلاج السلوكي المعرفي (CBT) في إجاباتك. أجب بأسلوب احترافي ومختصر، مع التركيز على النقاط الأساسية. استخدم لغة واضحة ومناسبة للجمهور العام. قم بتنظيم الردود باستخدام الفقرات القصيرة والقوائم المرقمة عند الحاجة. قم في استخدام صيغة المذكر في اجاباتك. قم في الرد على الرسالة التالية: " . $message;
         }
+
         // إضافة الرسالة الحالية
         $contents[] = [
             'role' => 'user',
-            'parts' => [
-                'parts' => [['text' => $message]]
-
-            ]
+            'parts' => [['text' => $message]] // ✅ تم تصحيح الخطأ
         ];
 
         // إرسال الطلب إلى Gemini API
@@ -173,10 +170,11 @@ class ChatController extends Controller
             ]
         ]);
 
+
         $responseData = json_decode($response->getBody(), true);
 
         if (empty($responseData['candidates'][0]['content']['parts'][0]['text'])) {
-            throw new \Exception('Invalid response from AI');
+            // throw new \Exception('Invalid response from AI');
         }
 
         return $responseData['candidates'][0]['content']['parts'][0]['text'];
