@@ -67,19 +67,22 @@ class ChatController extends Controller
             if (auth()->check()) {
                 if ($request->input('room_id') !== "newRoom") {
                     $roomChat = RoomChat::find($request->input('room_id'));
+                    $newRoom = false;
                 } else {
                     $roomChat = RoomChat::create([
                         'room_name' => $message,
                         'user_id' => auth()->id(),
                     ]);
+                    $newRoom = true;
                 }
                 $roomId = $roomChat->id;
             } else {
                 $roomId = 'guest';
+                $newRoom = true;
             }
 
             // إرسال الرسالة إلى AI مع السياق
-            $aiResponse = $this->requestDataInAi($message, $roomId, $userId);
+            $aiResponse = $this->requestDataInAi($message, $roomId, $userId  , $newRoom);
 
             // حفظ المحادثة حسب نوع المستخدم
             if (auth()->check()) {
@@ -108,7 +111,7 @@ class ChatController extends Controller
             return $this->errorResponse('An unexpected error occurred');
         }
     }
-    protected function requestDataInAi($message, $roomId, $userId)
+    protected function requestDataInAi($message, $roomId, $userId , $newRoom)
     {
         $contents = [];
 
@@ -143,11 +146,17 @@ class ChatController extends Controller
                 ];
             }
         }
-
+        if ($newRoom) {
+            $message = "أنت طبيب نفسي إكلينيكي متخصص في علاج القلق، الاكتئاب، الإرهاق، ومتلازمة المحتال. لديك خبرة تزيد عن 10 سنوات في هذا المجال. استخدم أسلوب العلاج السلوكي المعرفي (CBT) في إجاباتك. أجب بأسلوب احترافي ومختصر، مع التركيز على النقاط الأساسية. استخدم لغة واضحة ومناسبة للجمهور العام. قم بتنظيم الردود باستخدام الفقرات القصيرة والقوائم المرقمة عند الحاجة. قم في استخدام صيغة المذكر في اجاباتك. قم في الرد على الرسالة التالية:"
+                . $message;
+        }
         // إضافة الرسالة الحالية
         $contents[] = [
             'role' => 'user',
-            'parts' => [['text' => $message]]
+            'parts' => [
+                'parts' => [['text' => $message]]
+
+            ]
         ];
 
         // إرسال الطلب إلى Gemini API
@@ -156,10 +165,10 @@ class ChatController extends Controller
             'json' => [
                 'contents' => $contents,
                 'generationConfig' => [
-                    'temperature' => 0.7,
-                    'topK' => 40,
-                    'topP' => 0.95,
-                    'maxOutputTokens' => 1024,
+                    'temperature' => 0.9,
+                    'topK' => 10,
+                    'topP' => 0.9,
+                    'maxOutputTokens' => 200,
                 ]
             ]
         ]);

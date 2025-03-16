@@ -10,7 +10,9 @@ $(document).ready(function () {
     // معالجة النقر على أزرار المواضيع
     $topicButtons.on("click", function () {
         const topic = $(this).text();
-        $messageInput.val(`أود أن أتحدث عن ${topic}`);
+        $messageInput.val(
+            `أنت طبيب نفسي متخصص في علاج ${topic}. أود أن أتحدث عن ${topic}.`
+        );
         sendMessage();
     });
 
@@ -74,7 +76,7 @@ $(document).ready(function () {
 
                             // تحديث room_id للمحادثة الحالية
                             $roomId.attr("data-room_id", response.room.id);
-
+                            $messageInput.attr("disabled", false);
                             // إعادة تفعيل الأحداث للمحادثة الجديدة
                             $(".old-room")
                                 .last()
@@ -157,6 +159,8 @@ $(document).ready(function () {
             success: function (response) {
                 $("main").empty();
                 $("main").html(response.newRoomHtml);
+                $messageInput.attr("disabled", true);
+
             },
             error: function (xhr) {
                 console.error(xhr.responseText);
@@ -179,6 +183,7 @@ $(document).ready(function () {
                 $(".messages-container").empty().show();
                 $(".messages-container").html(response.message_html);
                 scrollToBottom();
+                $messageInput.attr("disabled", false);
             },
             error: function (xhr) {
                 console.error(xhr.responseText);

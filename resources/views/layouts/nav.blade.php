@@ -6,10 +6,10 @@
             </div>
 
             <div class="nav-links">
+                <a href="{{ route('home') }}" class="nav-link">Home</a>
                 <a href="{{ route('video') }}" class="nav-link">Video</a>
                 <a href="{{ route('article') }}" class="nav-link">Articles</a>
-                {{-- <a href="{{ route('category') }}" class="nav-link">Categories</a> --}}
-                <a href="#" class="nav-link">Specialists</a>
+                 <a href="#" class="nav-link">Specialists</a>
             </div>
 
             <div class="action-buttons">
@@ -34,9 +34,9 @@
     </div>
 
     <div class="mobile-menu">
+        <a href="{{ route('home') }}">Home</a>
         <a href="{{ route('video') }}">Video</a>
         <a href="{{ route('article') }}">Articles</a>
-        {{-- <a href="{{ route('category') }}">Categories</a> --}}
         <a href="#">Specialists</a>
         <a href="{{ route('chat') }}" class="btn-primary">Chat with AI</a>
         @auth

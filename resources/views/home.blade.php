@@ -17,10 +17,13 @@
             height: auto;
         }
 
-        .subtitle {
+      .subtitle {
             font-size: 22px;
             color: #403540;
             line-height: 1.5;
+            margin-bottom: 20px;
+            text-align: center;
+            margin-top: 80px;
         }
 
         .subtitle strong {
@@ -70,14 +73,6 @@
 
         /* category */
 
-        <style>.subtitle {
-            font-size: 22px;
-            color: #403540;
-            line-height: 1.5;
-            margin-bottom: 20px;
-            text-align: center;
-            margin-top: 80px;
-        }
 
         .category-section {
             text-align: left;
@@ -160,8 +155,8 @@
 
             <div class="container mx-auto">
                 <a href="{{ route('chat') }}">
-                <div class="box">
-                    Talk with AI</div>
+                    <div class="box">
+                        Talk with AI</div>
                 </a>
                 <a href="#category">
                     <div class="box">
@@ -172,7 +167,7 @@
 
 
         </div>
-        <div class="mt-50">
+        <div class="mt-30">
             <div id="category">
                 @include('category')
             </div>
