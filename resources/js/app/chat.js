@@ -61,30 +61,23 @@ $(document).ready(function () {
                         addMessage(response.message, "ai");
 
                         // إذا كانت محادثة جديدة، قم بإضافتها إلى قائمة المحادثات
-                        if (
-                            isNewRoom &&
-                            response.room_name &&
-                            response.room_id
-                        ) {
+                        if (isNewRoom && response.room_id && response.room_name) {
                             const newRoomHtml = `
                                 <li class="old-room" data-id="${response.room_id}">${response.room_name}</li>
                             `;
+
+                            // تحديث room_id للمحادثة الحالية
                             $roomId.attr("data-room_id", response.room_id);
 
                             // إضافة المحادثة الجديدة إلى بداية قائمة المحادثات
                             $(".conversations-list").prepend(newRoomHtml);
 
-                            // تحديث room_id للمحادثة الحالية
-                            $roomId.attr("data-room_id", response.room.id);
-                            $messageInput.attr("disabled", false);
                             // إعادة تفعيل الأحداث للمحادثة الجديدة
-                            $(".old-room")
-                                .last()
-                                .on("click", function () {
-                                    const chatId = $(this).data("id");
-                                    $roomId.attr("data-room_id", chatId);
-                                    loadChatHistory(chatId);
-                                });
+                            $(".old-room").first().on("click", function () {
+                                const chatId = $(this).data("id");
+                                $roomId.attr("data-room_id", chatId);
+                                loadChatHistory(chatId);
+                            });
                         }
                     }
                 },
@@ -159,7 +152,7 @@ $(document).ready(function () {
             success: function (response) {
                 $("main").empty();
                 $("main").html(response.newRoomHtml);
-                $messageInput.attr("disabled", true);
+                // $messageInput.attr("disabled", true);
 
             },
             error: function (xhr) {
@@ -183,7 +176,7 @@ $(document).ready(function () {
                 $(".messages-container").empty().show();
                 $(".messages-container").html(response.message_html);
                 scrollToBottom();
-                $messageInput.attr("disabled", false);
+                // $messageInput.attr("disabled", false);
             },
             error: function (xhr) {
                 console.error(xhr.responseText);

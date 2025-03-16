@@ -14,8 +14,8 @@
     </div>
 
     <div class="message-input-container">
-        <textarea placeholder="أشعر بـ..."  disabled rows="1"></textarea>
-        <button class="send-button" disabled>
+        <textarea placeholder="أشعر بـ..."    rows="1"></textarea>
+        <button class="send-button"  >
             <i class="fas fa-paper-plane"></i>
             <span>إرسال</span>
         </button>
