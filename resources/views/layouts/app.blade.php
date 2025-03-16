@@ -23,12 +23,10 @@
             padding: 50px;
         }
 
-        /* Navigation Styles */
         nav {
             background-color: #FCEBDC;
             backdrop-filter: blur(8px);
-            /* box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); */
-            /* position: fixed; */
+
             width: 100%;
             top: 0;
             z-index: 50;

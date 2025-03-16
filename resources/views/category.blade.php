@@ -1,5 +1,5 @@
-@extends('layouts.app')
-@section("styles")
+{{-- @extends('layouts.app') --}}
+{{-- @section("styles")
 <style>
     .subtitle {
         font-size: 22px;
@@ -71,9 +71,9 @@
         margin-top: 10px;
     }
 </style>
-@endsection
+@endsection --}}
 
-@section('content')
+{{-- @section('content') --}}
 <div class="subtitle">
     Browse a variety of mental disorders to get started
     <div class="arrow">↓</div>
@@ -126,4 +126,4 @@
 <div class="subtitle">
     <a href="#" class="btn-articles">Go to the full category list</a>
 </div>
-@endsection
+{{-- @endsection --}}

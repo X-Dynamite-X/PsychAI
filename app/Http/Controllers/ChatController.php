@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\Message;
 use App\Models\RoomChat;
+use Illuminate\Http\Request;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Support\Facades\Log;
@@ -17,10 +18,10 @@ class ChatController extends Controller
     public function __construct()
     {
         $this->apiKey = config('gemini.api_key');
-        $this->baseUrl = config('gemini.base_url').$this->apiKey;
+        $this->baseUrl = config('gemini.base_url') . $this->apiKey;
 
         $this->client = new Client([
-            'timeout'  => 30.0,
+            'timeout' => 30.0,
             'headers' => [
                 'Content-Type' => 'application/json',
                 'Accept' => 'application/json',
@@ -28,13 +29,27 @@ class ChatController extends Controller
         ]);
     }
 
-    public function index()
+    public function index(Request $request)
     {
         $roomChats = auth()->check()
             ? RoomChat::where('user_id', auth()->id())->latest()->get()
             : collect();
+        $newRoom = $request->input("new-room");
+        if ($newRoom) {
+            $newRoomHtml = view("chat.newRoom", compact('roomChats'))->render();
+            return response()->json([
+                'newRoomHtml' => $newRoomHtml,
+
+            ]);
+        }
 
         return view("chat", compact('roomChats'));
+    }
+    public function show(RoomChat $roomChat)
+    {
+        $messages = Message::where('room_chats_id', $roomChat->id)->get();
+        $message_html = view("chat.message", ['messages' => $messages])->render();
+        return response()->json(["message_html" => $message_html]);
     }
 
     public function store(Request $request)
@@ -86,14 +101,12 @@ class ChatController extends Controller
                 'success' => true,
                 'message' => $aiResponse
             ]);
-
         } catch (GuzzleException $e) {
             Log::error('Gemini API Error', [
                 'message' => $e->getMessage(),
                 'code' => $e->getCode()
             ]);
             return $this->errorResponse('Failed to communicate with AI service: ' . $e->getMessage());
-
         } catch (\Exception $e) {
             Log::error('Chat System Error', [
                 'message' => $e->getMessage(),
@@ -105,6 +118,7 @@ class ChatController extends Controller
 
     protected function errorResponse($message, $code = 500)
     {
+
         return response()->json([
             'success' => false,
             'message' => $message

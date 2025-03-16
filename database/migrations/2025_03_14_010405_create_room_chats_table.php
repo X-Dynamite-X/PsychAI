@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('room_chats', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->text('message');
-            $table->text('response');
+            $table->string('room_name');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade'); // المستخدم الذي أنشأ الغرفة
+
             $table->timestamps();
         });
     }

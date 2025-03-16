@@ -10,4 +10,5 @@ use App\Http\Controllers\ChatController;
 
 
  Route::get('/chat', [ChatController::class, 'index'])->name('chat');
- Route::post('/chat', [ChatController::class, 'store'])->name('chat.store');
+ Route::get('/chat/{roomChat}', [ChatController::class, 'show'])->name('chat.show');
+ Route::post('/chat/{roomChat}', [ChatController::class, 'store'])->name('chat.store');
