@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Cache;
 
 class ChatController extends Controller
 {
@@ -56,42 +57,46 @@ class ChatController extends Controller
     {
         try {
             $message = $request->input('message');
-
             if (empty($message)) {
                 return $this->errorResponse('Message cannot be empty');
             }
 
-            $aiResponse = $this->requestDataInAi($message);
+            // تحديد معرف المستخدم (مسجل أو زائر)
+            $userId = auth()->check() ? auth()->id() : session()->getId();
 
-            if ($request->input('room_id') !== "newRoom" && auth()->check()) {
-                $roomChat = RoomChat::find($request->input('room_id'));
-            } else if (auth()->check()) {
-                $roomChat = RoomChat::create([
-                    'room_name' => $message,
-                    'user_id' => auth()->id(),
-                ]);
-            }
-            // Save chat if user is authenticated
+            // تحديد الغرفة أو استخدام guest للزوار
             if (auth()->check()) {
+                if ($request->input('room_id') !== "newRoom") {
+                    $roomChat = RoomChat::find($request->input('room_id'));
+                } else {
+                    $roomChat = RoomChat::create([
+                        'room_name' => $message,
+                        'user_id' => auth()->id(),
+                    ]);
+                }
+                $roomId = $roomChat->id;
+            } else {
+                $roomId = 'guest';
+            }
 
+            // إرسال الرسالة إلى AI مع السياق
+            $aiResponse = $this->requestDataInAi($message, $roomId, $userId);
+
+            // حفظ المحادثة حسب نوع المستخدم
+            if (auth()->check()) {
                 $roomChat->messages()->create([
                     'sender_id' => auth()->id(),
                     'message_text' => $message,
                     'reseve_text' => $aiResponse
                 ]);
+            } else {
+                $this->cacheMessage($userId, $message, $aiResponse);
             }
-
 
             return response()->json([
                 'success' => true,
                 'message' => $aiResponse
             ]);
-        } catch (GuzzleException $e) {
-            Log::error('Gemini API Error', [
-                'message' => $e->getMessage(),
-                'code' => $e->getCode()
-            ]);
-            return $this->errorResponse('Failed to communicate with AI service: ' . $e->getMessage());
         } catch (\Exception $e) {
             Log::error('Chat System Error', [
                 'message' => $e->getMessage(),
@@ -100,19 +105,53 @@ class ChatController extends Controller
             return $this->errorResponse('An unexpected error occurred');
         }
     }
-    protected function requestDataInAi($message)
+    protected function requestDataInAi($message, $roomId, $userId)
     {
+        $contents = [];
 
+        // جلب المحادثات السابقة
+        if (auth()->check()) {
+            $previousMessages = Message::where('room_chats_id', $roomId)
+                ->orderBy('created_at', 'desc')
+                ->take(5)
+                ->get()
+                ->reverse();
+
+            foreach ($previousMessages as $prevMessage) {
+                $contents[] = [
+                    'role' => 'user',
+                    'parts' => [['text' => $prevMessage->message_text]]
+                ];
+                $contents[] = [
+                    'role' => 'model',
+                    'parts' => [['text' => $prevMessage->reseve_text]]
+                ];
+            }
+        } else {
+            $cachedMessages = $this->getCachedMessages($userId);
+            foreach ($cachedMessages as $prevMessage) {
+                $contents[] = [
+                    'role' => 'user',
+                    'parts' => [['text' => $prevMessage['user_message']]]
+                ];
+                $contents[] = [
+                    'role' => 'model',
+                    'parts' => [['text' => $prevMessage['ai_response']]]
+                ];
+            }
+        }
+
+        // إضافة الرسالة الحالية
+        $contents[] = [
+            'role' => 'user',
+            'parts' => [['text' => $message]]
+        ];
+
+        // إرسال الطلب إلى Gemini API
         $response = $this->client->post($this->baseUrl, [
             'query' => ['key' => $this->apiKey],
             'json' => [
-                'contents' => [
-                    [
-                        'parts' => [
-                            ['text' => $message]
-                        ]
-                    ]
-                ],
+                'contents' => $contents,
                 'generationConfig' => [
                     'temperature' => 0.7,
                     'topK' => 40,
@@ -121,14 +160,32 @@ class ChatController extends Controller
                 ]
             ]
         ]);
+
         $responseData = json_decode($response->getBody(), true);
 
         if (empty($responseData['candidates'][0]['content']['parts'][0]['text'])) {
-            return $this->errorResponse('Invalid response from AI');
+            throw new \Exception('Invalid response from AI');
         }
-        $aiResponse = $responseData['candidates'][0]['content']['parts'][0]['text'];
 
-        return $aiResponse;
+        return $responseData['candidates'][0]['content']['parts'][0]['text'];
+    }
+    protected function cacheMessage($userId, $userMessage, $aiResponse)
+    {
+        $messages = $this->getCachedMessages($userId);
+        // حفظ آخر 5 رسائل فقط
+        if (count($messages) >= 5) {
+            array_shift($messages);
+        }
+        $messages[] = [
+            'user_message' => $userMessage,
+            'ai_response' => $aiResponse
+        ];
+        Cache::put('chat_history_' . $userId, $messages, now()->addMinutes(30));
+    }
+
+    protected function getCachedMessages($userId)
+    {
+        return Cache::get('chat_history_' . $userId, []);
     }
     protected function errorResponse($message, $code = 500)
     {
