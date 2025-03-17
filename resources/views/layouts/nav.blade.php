@@ -6,10 +6,14 @@
             </div>
 
             <div class="nav-links">
+                @role('admin')
+                    <a href="{{ route('admin.users') }}" class="nav-link">Admin</a>
+                @endrole
+
                 <a href="{{ route('home') }}" class="nav-link">Home</a>
                 <a href="{{ route('video') }}" class="nav-link">Video</a>
                 <a href="{{ route('article') }}" class="nav-link">Articles</a>
-                 <a href="#" class="nav-link">Specialists</a>
+                <a href="#" class="nav-link">Specialists</a>
             </div>
 
             <div class="action-buttons">

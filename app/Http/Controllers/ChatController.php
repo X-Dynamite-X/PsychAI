@@ -55,7 +55,7 @@ class ChatController extends Controller
 
     public function store(Request $request)
     {
-        // try {
+        try {
             $message = $request->input('message');
             if (empty($message)) {
                 return $this->errorResponse('Message cannot be empty');
@@ -103,13 +103,13 @@ class ChatController extends Controller
                 "room_id" => $roomChat->id,
 
             ]);
-        // } catch (\Exception $e) {
-        //     Log::error('Chat System Error', [
-        //         'message' => $e->getMessage(),
-        //         'trace' => $e->getTraceAsString()
-        //     ]);
-        //     return $this->errorResponse('An unexpected error occurred');
-        // }
+        } catch (\Exception $e) {
+            Log::error('Chat System Error', [
+                'message' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ]);
+            return $this->errorResponse('An unexpected error occurred');
+        }
     }
     protected function requestDataInAi($message, $roomId, $userId , $newRoom)
     {

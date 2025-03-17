@@ -17,7 +17,7 @@
             height: auto;
         }
 
-      .subtitle {
+        .subtitle {
             font-size: 22px;
             color: #403540;
             line-height: 1.5;
@@ -33,11 +33,11 @@
         .container {
             border: 2px solid #5E875E;
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
             gap: 20px;
             padding: 20px;
             margin: 30px auto;
-            width: 50%;
+            width: fit-content;
             border-radius: 10px;
         }
 
@@ -63,6 +63,17 @@
             border: 2px solid #5E875E;
             color: #5E875E;
             background-color: transparent;
+        }
+
+        .box:first-child:hover {
+            border: 2px solid #5E875E;
+            color: #5E875E;
+            background-color: transparent;
+        }
+
+        .box:last-child:hover {
+            background-color: #5E875E;
+            color: white;
         }
 
         .arrow {

@@ -7,9 +7,7 @@
     <title>Login - TechBlog</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@1,700&display=swap');
-        @import url('https://fonts.cdnfonts.com/css/cascadia-code');
-        @import url('https://fonts.cdnfonts.com/css/cascadia-code');
+@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@200;300;400;500;700;800;900&display=swap');
 
 
         * {

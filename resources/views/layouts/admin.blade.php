@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - TechBlog</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
 </head>
@@ -14,6 +15,11 @@
     @include('layouts.sidebar')
     <div class="p-4 sm:ml-64">
         @yield('content')
+        @yield('loding')
+
+        <div id="models">
+        @yield('models')
+        </div>
     </div>
 
     </div>
