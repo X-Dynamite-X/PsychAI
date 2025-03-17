@@ -7,7 +7,7 @@
             gap: 2rem;
             padding: 2rem;
             background-color: #FCEBDC;
-            min-height: calc(100vh - 4rem);
+            /* min-height: calc(100vh - 4rem); */
             max-width: 1920px;
             margin: 0 auto;
         }
@@ -59,7 +59,7 @@
             transform: translateX(4px);
         }
 
- 
+
 
 
         /* Chat Area Styling */

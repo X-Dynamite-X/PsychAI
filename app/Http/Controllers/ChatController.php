@@ -162,10 +162,10 @@ class ChatController extends Controller
             'json' => [
                 'contents' => $contents,
                 'generationConfig' => [
-                    'temperature' => 0.9,
-                    'topK' => 10,
-                    'topP' => 0.9,
-                    'maxOutputTokens' => 200,
+                    'temperature' => 0.3,
+                    'topK' => 5,
+                    'topP' => 0.3,
+                    'maxOutputTokens' => 400,
                 ]
             ]
         ]);
