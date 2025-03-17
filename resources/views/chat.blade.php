@@ -14,11 +14,11 @@
 
         /* Sidebar Styling */
         .past-conversations {
-            /* background: rgba(255, 255, 255, 0.8); */
             backdrop-filter: blur(8px);
             padding: 1.5rem;
             border-radius: 1rem;
             height: fit-content;
+            max-height: 70vh;
             border: 1px solid #81AD74;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
             transition: all 0.3s ease;
@@ -37,7 +37,10 @@
         .conversations-list {
             display: flex;
             flex-direction: column;
-            gap: 0.75rem;
+            align-items: center;
+            max-height:47vh;
+            height: fit-content
+
         }
 
         .conversations-list li {
@@ -45,7 +48,9 @@
             border-radius: 0.5rem;
             cursor: pointer;
             transition: all 0.2s ease;
-            /* background: rgba(255, 255, 255, 0.5); */
+            max-width: 90%;
+            min-width: 90%;
+            margin: 0.25rem 0;
             border: 1px solid #81AD74
         }
 
@@ -53,6 +58,9 @@
             background: #81AD74;
             transform: translateX(4px);
         }
+
+ 
+
 
         /* Chat Area Styling */
         .chat-area {
@@ -80,7 +88,9 @@
             border-radius: 12px;
             line-height: 2;
             font-size: 14px;
-            max-width: fit-content;
+            width: fit-content;
+            max-width: 75%;
+            margin: 0 2rem;
             margin-top: 12px;
         }
 
@@ -466,6 +476,19 @@
             transform: translateX(4px);
         }
 
+        .app-scroll::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        .app-scroll::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 5px;
+        }
+
+        .app-scroll::-webkit-scrollbar-thumb {
+            background: #81AD74;
+            border-radius: 5px;
+        }
     </style>
 @endsection
 
