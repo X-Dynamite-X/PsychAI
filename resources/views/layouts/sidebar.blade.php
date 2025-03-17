@@ -15,8 +15,8 @@
                 </button>
                 <a href="#" class="flex ms-2 md:me-24">
                     <img src="{{ asset('logo_1.svg') }}" class="h-8 me-3" alt="Psych AI Logo" />
-                    <span
-                        class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">Psych AI</span>
+                    <span class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">Psych
+                        AI</span>
                 </a>
             </div>
             <div class="flex items-center">
@@ -27,17 +27,18 @@
                             aria-expanded="false" data-dropdown-toggle="dropdown-user">
                             <span class="sr-only">Open user menu</span>
                             <img class="w-8 h-8 rounded-full"
-                            src="https://ui-avatars.com/api/?name={{ urlencode(auth()->user()->name) }}&background=random" alt="user photo">
+                                src="https://ui-avatars.com/api/?name={{ urlencode(auth()->user()->name) }}&background=random"
+                                alt="user photo">
                         </button>
                     </div>
                     <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-sm shadow-sm dark:bg-gray-700 dark:divide-gray-600"
                         id="dropdown-user">
                         <div class="px-4 py-3" role="none">
                             <p class="text-sm text-gray-900 dark:text-white" role="none">
-                                {{auth()->user()->name}}
+                                {{ auth()->user()->name }}
                             </p>
-                            <p  class="text-sm font-medium text-gray-900 truncate dark:text-gray-300" role="none">
-                                {{auth()->user()->email}}
+                            <p class="text-sm font-medium text-gray-900 truncate dark:text-gray-300" role="none">
+                                {{ auth()->user()->email }}
                             </p>
                         </div>
                         <ul class="py-1" role="none">
@@ -79,10 +80,10 @@
     aria-label="Sidebar">
     <div class="h-full px-3 pb-4 overflow-y-auto bg-white dark:bg-gray-800">
         <ul class="space-y-2 font-medium">
-        
+
 
             <li>
-                <a href="{{route('admin.users')}}"
+                <a href="{{ route('admin.users') }}"
                     class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                     <svg class="shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
                         aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
@@ -96,11 +97,10 @@
                 <a href="{{ route('home') }}"
                     class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                     <svg class="shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
-                        aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20">
-                        <path
-                            d="M17 5.923A1 1 0 0 0 16 5h-3V4a4 4 0 1 0-8 0v1H2a1 1 0 0 0-1 .923L.086 17.846A2 2 0 0 0 2.08 20h13.84a2 2 0 0 0 1.994-2.153L17 5.923ZM7 9a1 1 0 0 1-2 0V7h2v2Zm0-5a2 2 0 1 1 4 0v1H7V4Zm6 5a1 1 0 1 1-2 0V7h2v2Z" />
+                        aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M19.1 9.4L10.2 2.2C10.1 2.1 10 2.1 9.8 2.1C9.6 2.1 9.5 2.1 9.3 2.2L0.9 9.4C0.7 9.6 0.7 9.9 0.9 10.1C1 10.2 1.2 10.3 1.3 10.3H2.6V17.1C2.6 17.6 3 18 3.5 18H7.5C7.8 18 8 17.8 8 17.5V13.5C8 13.2 8.2 13 8.5 13H11.5C11.8 13 12 13.2 12 13.5V17.5C12 17.8 12.2 18 12.5 18H16.5C17 18 17.4 17.6 17.4 17.1V10.3H18.7C18.8 10.3 19 10.2 19.1 10.1C19.3 9.9 19.3 9.6 19.1 9.4Z"/>
                     </svg>
-                    <span class="flex-1 ms-3 whitespace-nowrap">App</span>
+                    <span class="flex-1 ms-3 whitespace-nowrap">Home</span>
                 </a>
             </li>
 
@@ -111,14 +111,9 @@
                     <button type="submit"
                         class="flex w-full items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                         <svg class="shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
-                            aria-hidden="true"
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke-width="1.5"
-                            stroke="currentColor">
-                            <path stroke-linecap="round"
-                                stroke-linejoin="round"
+                            aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                            stroke-width="1.5" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round"
                                 d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75" />
                         </svg>
                         <span class="ms-3 whitespace-nowrap">Log Out</span>

@@ -39,11 +39,17 @@ class DatabaseSeeder extends Seeder
 
         for ($i = 0; $i < 100; $i++) {
             $user = User::create([
-                'name' => fake()->name(),
-                'email' => fake()->unique()->safeEmail(),
+                'name' => "user_".($i+1),
+                'email' => "user_".($i+1)."@gmial.com",
                 'password' => Hash::make(value: '123'),
             ]);
-            $user->syncRoles("user");
+            if($i%10 ===0){
+
+                $user->syncRoles("doctor");
+            }else{
+                $user->syncRoles("user");
+
+            }
         }
     }
 }
