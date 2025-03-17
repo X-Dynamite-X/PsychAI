@@ -165,7 +165,7 @@ class ChatController extends Controller
                     'temperature' => 0.3,
                     'topK' => 5,
                     'topP' => 0.3,
-                    'maxOutputTokens' => 400,
+                    'maxOutputTokens' => 150,
                 ]
             ]
         ]);
