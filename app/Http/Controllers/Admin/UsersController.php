@@ -52,7 +52,7 @@ class UsersController extends Controller
 
         // للطلبات غير Ajax
         $users = User::paginate(perPage: 10);
-         return view('admin.users', ['users' => $users]);
+         return view('Admin.users', ['users' => $users]);
     }
 
 
