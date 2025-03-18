@@ -47,13 +47,11 @@ class VideoController extends Controller
             }
 
             $data['user_id'] = auth()->id();
-            Video::create($data);
+            $video =Video::create($data);
 
-            return response()->json([
-                'success' => true,
-                'message' => 'Video created successfully',
-                'redirect' => route('video.index')
-            ]);
+
+            return redirect()->route('video.show', $video->id)
+                ->with('success', 'تم إنشاء الفيديو بنجاح');
         } catch (\Exception $e) {
             // Clean up uploaded image if creation fails
             if (isset($data['image'])) {
