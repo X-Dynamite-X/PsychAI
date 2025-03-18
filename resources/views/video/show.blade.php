@@ -11,15 +11,16 @@
             </a>
         </div>
 
-        <div class="bg-white rounded-lg shadow-lg overflow-hidden h-full">
-            <div class="aspect-w-16 aspect-h-9 ">
-                <iframe src="{{ $video->url }}"
-                        frameborder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowfullscreen
-                        height="15rem"
-                        
-                        class="w-full h-full"></iframe>
+        <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+            <div class="relative" style="padding-top: 50vh;">
+                <iframe
+                    src="{{ $video->url }}"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen
+                    class="absolute top-0 left-0 w-full h-full"
+                    style="min-height: 50vh;">
+                </iframe>
             </div>
 
             <div class="p-6">
@@ -42,3 +43,4 @@
     </div>
 </div>
 @endsection
+
