@@ -180,7 +180,7 @@
         </div>
         <div class="mt-30">
             <div id="category">
-                @include('category')
+                @include('category', ['categories' => $categories])
             </div>
         </div>
     </div>
