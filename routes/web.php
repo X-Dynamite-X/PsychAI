@@ -2,11 +2,13 @@
 
 use App\Http\Controllers\ArticleController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\VideoController;
+use App\Model\Category;
 
-Route::get('/', [HomeController::class, 'index'])->name("home");
+Route::get('/', function () {
+    return view('home');
+})->name("home");
 
 Route::get('/test', function () {
     return view('test');
@@ -18,7 +20,8 @@ Route::post('/logout', [AuthController::class, 'logout'])
 
 Route::view('category', 'category')
     ->name('category');
-
+Route::view('video', 'video')
+    ->name('video');
 Route::view('article', 'article')
     ->name('article');
 

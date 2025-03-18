@@ -55,17 +55,11 @@ class ChatController extends Controller
 
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'title' => 'required|string|max:255',
-            'content' => 'required|string',
-            'category_id' => 'required|exists:categories,id',
-        ]);
-
-        if ($validator->fails()) {
-            return redirect()->route('articles.create')
-                ->withErrors($validator)
-                ->withInput();
-        }
+        try {
+            $message = $request->input('message');
+            if (empty($message)) {
+                return $this->errorResponse('Message cannot be empty');
+            }
 
              $userId = auth()->check() ? auth()->id() : session()->getId();
 
@@ -119,9 +113,42 @@ class ChatController extends Controller
     }
     protected function requestDataInAi($message, $roomId, $userId , $newRoom)
     {
-        $categories = Category::all();
-        return view('articles.edit', compact('article', 'categories'));
-    }
+        $contents = [];
+
+        // جلب المحادثات السابقة
+        if (auth()->check()) {
+            $previousMessages = Message::where('room_chats_id', $roomId)
+                ->orderBy('created_at', 'desc')
+                ->take(5)
+                ->get()
+                ->reverse();
+
+            foreach ($previousMessages as $prevMessage) {
+                $contents[] = [
+                    'role' => 'user',
+                    'parts' => [['text' => $prevMessage->message_text]]
+                ];
+                $contents[] = [
+                    'role' => 'model',
+                    'parts' => [['text' => $prevMessage->reseve_text]]
+                ];
+            }
+        } else {
+            $cachedMessages = $this->getCachedMessages($userId);
+            foreach ($cachedMessages as $prevMessage) {
+                $contents[] = [
+                    'role' => 'user',
+                    'parts' => [['text' => $prevMessage['user_message']]]
+                ];
+                $contents[] = [
+                    'role' => 'model',
+                    'parts' => [['text' => $prevMessage['ai_response']]]
+                ];
+            }
+        }
+        if ($newRoom) {
+            $message = "أنت طبيب نفسي إكلينيكي متخصص في علاج القلق، الاكتئاب، الإرهاق، ومتلازمة المحتال. لديك خبرة تزيد عن 10 سنوات في هذا المجال. استخدم أسلوب العلاج السلوكي المعرفي (CBT) في إجاباتك. أجب بأسلوب احترافي ومختصر، مع التركيز على النقاط الأساسية. استخدم لغة واضحة ومناسبة للجمهور العام. قم بتنظيم الردود باستخدام الفقرات القصيرة والقوائم المرقمة عند الحاجة. قم في استخدام صيغة المذكر في اجاباتك. قم في الرد على الرسالة التالية: " . $message;
+        }
 
         // إضافة الرسالة الحالية
         $contents[] = [
