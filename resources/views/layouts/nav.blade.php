@@ -12,7 +12,7 @@
 
                 <a href="{{ route('home') }}" class="nav-link">Home</a>
                 <a href="{{ route('video.index') }}" class="nav-link">Video</a>
-                <a href="{{ route('article') }}" class="nav-link">Articles</a>
+                <a href="{{ route('articles.index') }}" class="nav-link">Articles</a>
                 <a href="#" class="nav-link">Specialists</a>
             </div>
 
@@ -40,7 +40,7 @@
     <div class="mobile-menu">
         <a href="{{ route('home') }}">Home</a>
         <a href="{{ route('video.index') }}">Video</a>
-        <a href="{{ route('article') }}">Articles</a>
+        <a href="{{ route('articles.index') }}">Articles</a>
         <a href="#">Specialists</a>
         <a href="{{ route('chat') }}" class="btn-primary">Chat with AI</a>
         @auth

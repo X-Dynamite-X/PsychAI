@@ -9,17 +9,22 @@ class Video extends Model
 {
     use HasFactory;
 
-    protected $table = 'videos'; // تحديد اسم الجدول
-
     protected $fillable = [
         'title',
         'url',
-        'category_id', // مفتاح خارجي لفئة الضغوطات
+        'image',
+        'category_id',
+        'user_id'
     ];
 
-    // علاقة مع الفئة
     public function category()
     {
         return $this->belongsTo(Category::class);
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
+
