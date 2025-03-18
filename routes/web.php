@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ArticleController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Auth\AuthController;
@@ -20,7 +21,7 @@ Route::view('category', 'category')
 
 Route::view('article', 'article')
     ->name('article');
-Route::resource('video', VideoController::class);
+
 require __DIR__ . '/auth.php';
 require __DIR__.'/chatAi.php';
 require __DIR__.'/admin.php';

@@ -12,6 +12,8 @@
     }
 
     .article-section {
+        display: flex; /* نستخدم Flexbox لتوزيع النص والصورة بجانب بعضهما */
+        align-items: center; /* محاذاة العناصر عموديًا */
         text-align: left;
         width: 60%;
         margin: 30px auto;
@@ -19,12 +21,22 @@
         border-radius: 10px;
         border-bottom: 2px dashed #5E875E;
         transition: transform 0.2s;
-        
     }
 
     .article-section:hover {
         transform: translateY(-5px);
         background-color: #FCEBD4;
+    }
+
+    .article-content {
+        flex: 1; /* المحتوى النصي يشغل المساحة المتاحة */
+    }
+
+    .article-image img {
+        width: 200px; /* تحديد عرض الصورة */
+        height: auto; /* الحفاظ على نسبة العرض إلى الارتفاع */
+        border-radius: 10px; /* إضافة حواف دائرية للصورة */
+        margin-left: 20px; /* مسافة بين النص والصورة */
     }
 
     .article-title {
@@ -88,15 +100,23 @@
 </div>
 
 <div class="article-section">
-    <div class="article-title"><em>القلق</em></div>
-    <div class="article-buttons">
-        <a href="{{ route('chat') }}" class="btn-chat">الدردشة مع الذكاء الاصطناعي</a>
-        <a href="#" class="btn-articles">المقالات</a>
+    <div class="article-content">
+        <div class="article-title"><em>القلق</em></div>
+        <div class="article-buttons">
+            <a href="{{ route('chat') }}" class="btn-chat">الدردشة مع الذكاء الاصطناعي</a>
+            <a href="#" class="btn-articles">المقالات</a>
+        </div>
+        <div class="article-description">
+            حالة صحية نفسية تتميز بقلق أو خوف أو توتر مفرط. يمكن أن تظهر جسديًا (مثل التعرق، تسارع ضربات القلب) وذهنيًا (مثل الأفكار المتطفلة)، وغالبًا ما تتداخل مع الحياة اليومية.
+        </div>
     </div>
-    <div class="article-description">
-        حالة صحية نفسية تتميز بقلق أو خوف أو توتر مفرط. يمكن أن تظهر جسديًا (مثل التعرق، تسارع ضربات القلب) وذهنيًا (مثل الأفكار المتطفلة)، وغالبًا ما تتداخل مع الحياة اليومية.
+
+    <!-- الصورة على يمين المقالة -->
+    <div class="article-image">
+        <img src="{{ asset('images/tired.jpg') }}" alt="Tired Image">
     </div>
 </div>
+
 
 <div class="article-section">
     <div class="article-title"><em>الاكتئاب</em></div>
