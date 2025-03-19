@@ -220,16 +220,17 @@
 
                 <div class="section reviews-section">
                     <h3 class="section-title">التقييمات</h3>
+                    <div class="reviews-container max-h-[40vh] overflow-y-scroll">
                     @if ($specialist->reviews->count() > 0)
                         @foreach ($specialist->reviews as $review)
                             <div class="review-card hover:shadow-lg transition-shadow duration-300">
                                 <div class="review-header">
                                     <div class="reviewer-info">
-                                        <img src="https://ui-avatars.com/api/?name={{ urlencode($review->author) }}&size=40"
-                                            alt="{{ $review->author }}" class="w-10 h-10 rounded-full inline-block">
+                                        <img src="https://ui-avatars.com/api/?name={{ urlencode($review->user->name) }}&size=40"
+                                            alt="{{ $review->user->name }}" class="w-10 h-10 rounded-full inline-block">
                                         <div class="ml-3 inline-block">
                                             <span
-                                                class="review-author font-semibold text-gray-800">{{ $review->author }}</span>
+                                                class="review-author font-semibold text-gray-800">{{ $review->user->name }}</span>
                                             <div class="text-sm text-gray-500">
                                                 {{ $review->created_at->diffForHumans() }}
                                             </div>
@@ -266,6 +267,7 @@
                             <p class="text-gray-500">لا توجد تقييمات حتى الآن</p>
                         </div>
                     @endif
+                    </div>
                 </div>
             </div>
 
@@ -289,5 +291,42 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div class="add-review-section bg-white rounded-lg shadow p-6 mb-6">
+        <h3 class="text-xl font-semibold mb-4">إضافة تقييم</h3>
+
+        @auth
+            <form action="{{ route('specialists.reviews.store', $specialist) }}" method="POST" id="reviewForm">
+                @csrf
+                <div class="mb-4">
+                    <label class="block text-gray-700 mb-2">التقييم</label>
+                    <div class="rating-input flex gap-2">
+                        @for ($i = 1; $i <= 5; $i++)
+                            <label class="cursor-pointer">
+                                <input type="radio" name="rating" value="{{ $i }}" class="hidden" required>
+                                <i class="far fa-star text-2xl text-gray-400 hover:text-yellow-400 transition-colors"></i>
+                            </label>
+                        @endfor
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <label for="content" class="block text-gray-700 mb-2">تعليقك</label>
+                    <textarea id="content" name="content" rows="4"
+                        class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500" required
+                        placeholder="اكتب تجربتك مع المختص هنا..."></textarea>
+                </div>
+
+                <button type="submit"
+                    class="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition-colors">
+                    إرسال التقييم
+                </button>
+            </form>
+        @else
+            <div class="text-center py-4 bg-gray-50 rounded-lg">
+                <p class="text-gray-600">يرجى <a href="{{ route('login') }}" class="text-green-600 hover:underline">تسجيل
+                        الدخول</a> لإضافة تقييم</p>
+            </div>
+        @endauth
     </div>
 @endsection

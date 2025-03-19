@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Specialist;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+
 class SpecialistController extends Controller
 {
     /**
@@ -93,7 +94,12 @@ class SpecialistController extends Controller
             'content' => $validated['content']
         ]);
 
-        return redirect()->route('specialists.show', $specialist)
-            ->with('success', 'شكراً لك! تم إضافة تقييمك بنجاح.');
+        return response()->json(['success' => true,
+        'review' => $specialist->reviews()->latest()->first()
+            ->load('user')
+    ]);
+        // return redirect()->route('specialists.show', $specialist)
+        //     ->with('success', 'شكراً لك! تم إضافة تقييمك بنجاح.');
     }
+
 }

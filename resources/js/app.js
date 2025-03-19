@@ -10,5 +10,6 @@ import "./app/chat"
 import "./admin/users"
 import "./app/video"
 import "./app/article";
+import "./app/review";
 
 
