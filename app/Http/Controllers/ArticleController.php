@@ -226,7 +226,7 @@ class ArticleController extends Controller
         ]);
         return response()->json([
             'success' => true,
-            'commant' => $commant,
+            'commant' => $commant->load('user'),
         ]);
     }
 }

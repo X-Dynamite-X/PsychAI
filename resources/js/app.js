@@ -8,4 +8,7 @@ import "./auth/reset_password"
 import "./admin/users"
 import "./app/chat"
 import "./admin/users"
+import "./app/video"
+import "./app/article";
+
 

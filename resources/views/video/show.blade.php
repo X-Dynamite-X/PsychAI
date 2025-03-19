@@ -159,7 +159,7 @@
             @endif
         </div>
 
-      
+
 
         @if($relatedVideos->count() > 0)
             <div class="mt-8">
@@ -194,7 +194,7 @@
 
         @auth
             <form action="{{ route('video.comment.store', $video) }}" method="POST" class="comment-form mb-8">
-                @csrf
+
                 <textarea
                     name="commant"
                     placeholder="أضف تعليقك هنا..."
