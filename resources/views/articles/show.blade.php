@@ -86,6 +86,66 @@
             font-size: 2rem;
         }
     }
+
+    /* أنماط جديدة للتعليقات */
+    .comments-section {
+        margin-top: 3rem;
+        padding-top: 2rem;
+        border-top: 2px dashed #81AD74;
+    }
+
+    .comments-title {
+        font-size: 1.5rem;
+        color: #403540;
+        margin-bottom: 1.5rem;
+    }
+
+    .comment-form {
+        margin-bottom: 2rem;
+    }
+
+    .comment-input {
+        width: 100%;
+        padding: 1rem;
+        border: 1px solid #81AD74;
+        border-radius: 8px;
+        margin-bottom: 1rem;
+        background-color: white;
+    }
+
+    .comment-card {
+        background-color: white;
+        padding: 1rem;
+        border-radius: 8px;
+        margin-bottom: 1rem;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+
+    .comment-header {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 0.5rem;
+        color: #666;
+        font-size: 0.9rem;
+    }
+
+    .comment-content {
+        color: #403540;
+    }
+
+    .submit-button {
+        background-color: #81AD74;
+        color: white;
+        padding: 0.75rem 1.5rem;
+        border-radius: 8px;
+        border: none;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .submit-button:hover {
+        background-color: #6a8f63;
+    }
 </style>
 @endsection
 
@@ -106,6 +166,44 @@
 
     <div class="article-content">
         {{ $article->content }}
+    </div>
+
+    <!-- قسم التعليقات الجديد -->
+    <div class="comments-section">
+        <h2 class="comments-title">التعليقات</h2>
+
+        @auth
+            <form action="{{ route('articles.comment.store', $article) }}" method="POST" class="comment-form">
+                @csrf
+                <textarea name="commant"
+                          class="comment-input"
+                          rows="3"
+                          placeholder="أضف تعليقك هنا..."
+                          required></textarea>
+                <button type="submit" class="submit-button">إرسال التعليق</button>
+            </form>
+        @else
+            <p class="text-center text-gray-600 mb-4">
+                <a href="{{ route('login') }}" class="text-blue-600 hover:underline">سجل دخول</a>
+                لإضافة تعليق
+            </p>
+        @endauth
+
+        <div class="comments-list">
+            @forelse($article->commants as $comment)
+                <div class="comment-card">
+                    <div class="comment-header">
+                        <span class="comment-author">{{ $comment->user->name }}</span>
+                        <span class="comment-date">{{ $comment->created_at->diffForHumans() }}</span>
+                    </div>
+                    <div class="comment-content">
+                        {{ $comment->commant }}
+                    </div>
+                </div>
+            @empty
+                <p class="text-center text-gray-600">لا توجد تعليقات بعد. كن أول من يعلق!</p>
+            @endforelse
+        </div>
     </div>
 
     <div class="flex justify-between items-center">
@@ -132,4 +230,5 @@
     </div>
 </div>
 @endsection
+
 

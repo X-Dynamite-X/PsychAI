@@ -26,7 +26,9 @@ Route::group(['middleware' => ['auth', 'role:doctor||admin']], function () {
 Route::get('/articles', [ArticleController::class, 'index'])->name('articles.index');
 Route::get('/articles/{article}', [ArticleController::class, 'show'])->name('articles.show');
 Route::get('/articles/category/{category}', [ArticleController::class, 'category'])->name('articles.category');
+Route::post('/articles/{article}/comment', [ArticleController::class, 'storeComment'])->name('articles.comment.store');
 
 Route::get('/video', [VideoController::class, 'index'])->name('video.index');
 Route::get('/video/{video}', [VideoController::class, 'show'])->name('video.show');
 Route::get('/video/category/{category}', [VideoController::class, 'category'])->name('video.category');
+Route::post('/video/{video}/comment', [VideoController::class, 'storeComment'])->name('video.comment.store');

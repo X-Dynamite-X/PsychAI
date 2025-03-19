@@ -56,6 +56,68 @@
         background-color: #6a8f63;
         transform: translateY(-2px);
     }
+
+    /* أنماط التعليقات */
+    .comments-section {
+        background-color: white;
+        border-radius: 10px;
+        padding: 1.5rem;
+        margin-top: 2rem;
+    }
+
+    .comment-form textarea {
+        width: 100%;
+        border: 1px solid #E2E8F0;
+        border-radius: 8px;
+        padding: 1rem;
+        margin-bottom: 1rem;
+        resize: vertical;
+        min-height: 100px;
+    }
+
+    .comment-submit {
+        background-color: #81AD74;
+        color: white;
+        padding: 0.75rem 1.5rem;
+        border-radius: 8px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+
+    .comment-submit:hover {
+        background-color: #6a8f63;
+        transform: translateY(-2px);
+    }
+
+    .comment-card {
+        border-bottom: 1px solid #E2E8F0;
+        padding: 1.5rem 0;
+    }
+
+    .comment-card:last-child {
+        border-bottom: none;
+    }
+
+    .comment-header {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 0.75rem;
+    }
+
+    .comment-author {
+        font-weight: 600;
+        color: #2D3748;
+    }
+
+    .comment-date {
+        color: #718096;
+        font-size: 0.875rem;
+    }
+
+    .comment-content {
+        color: #4A5568;
+        line-height: 1.5;
+    }
 </style>
 @endsection
 
@@ -97,10 +159,7 @@
             @endif
         </div>
 
-        <div class="mt-4">
-            <h2 class="text-xl font-semibold text-gray-900 mb-2">Description</h2>
-            <p class="text-gray-700">{{ $video->description }}</p>
-        </div>
+      
 
         @if($relatedVideos->count() > 0)
             <div class="mt-8">
@@ -128,7 +187,54 @@
             </div>
         @endif
     </div>
+
+    <!-- قسم التعليقات -->
+    <div class="comments-section">
+        <h2 class="text-xl font-semibold text-gray-900 mb-6">التعليقات</h2>
+
+        @auth
+            <form action="{{ route('video.comment.store', $video) }}" method="POST" class="comment-form mb-8">
+                @csrf
+                <textarea
+                    name="comment"
+                    placeholder="أضف تعليقك هنا..."
+                    class="focus:border-green-500 focus:ring-1 focus:ring-green-500"
+                    required
+                ></textarea>
+                <button type="submit" class="comment-submit">
+                    إرسال التعليق
+                </button>
+            </form>
+        @else
+            <div class="bg-gray-50 rounded-lg p-4 text-center mb-8">
+                <p class="text-gray-600">
+                    <a href="{{ route('login') }}" class="text-green-600 hover:text-green-700 font-medium">
+                        سجل دخول
+                    </a>
+                    لإضافة تعليق
+                </p>
+            </div>
+        @endauth
+
+        <div class="comments-list">
+            @forelse($video->comments as $comment)
+                <div class="comment-card">
+                    <div class="comment-header">
+                        <span class="comment-author">{{ $comment->user->name }}</span>
+                        <span class="comment-date">{{ $comment->created_at->diffForHumans() }}</span>
+                    </div>
+                    <p class="comment-content">{{ $comment->comment }}</p>
+                </div>
+            @empty
+                <div class="text-center text-gray-500 py-8">
+                    <p>لا توجد تعليقات بعد. كن أول من يعلق!</p>
+                </div>
+            @endforelse
+        </div>
+    </div>
 </div>
 @endsection
+
+
 
 

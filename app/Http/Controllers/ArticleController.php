@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Article;
 use App\Models\Category;
+use App\Models\CommantArticle;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
@@ -206,5 +207,26 @@ class ArticleController extends Controller
             return redirect()->back()
                 ->with('error', 'فشل في حذف المقال');
         }
+    }
+    public function storeComment(Request $request , Article $article)
+    {
+        $validator = Validator::make($request->all(), [
+            'comment' => 'required|string',
+        ]);
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'errors' => $validator->errors()
+            ], 422);
+        }
+        $comment = CommantArticle::create([
+            'article_id' => $article->id,
+            'user_id' => auth()->id(),
+            'comment' => $request->comment,
+        ]);
+        return response()->json([
+            'success' => true,
+            'comment' => $comment,
+        ]);
     }
 }

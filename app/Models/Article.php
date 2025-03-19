@@ -26,4 +26,8 @@ class Article extends Model
     {
         return $this->belongsTo(User::class);
     }
+    public function commants()
+    {
+        return $this->hasMany(CommantArticle::class);
+    }
 }

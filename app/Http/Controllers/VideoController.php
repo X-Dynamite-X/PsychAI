@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\{Video, Category};
- use Illuminate\Http\Request;
+use App\Models\{Video, Category, CommantVideo};
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
@@ -170,5 +170,26 @@ class VideoController extends Controller
                 'message' => 'Error deleting video'
             ], 500);
         }
+    }
+    public function storeComment(Request $request, Video $video ){
+        $validator = Validator::make($request->all(), [
+            'comment' => 'required|string',
+        ]);
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'errors' => $validator->errors()
+            ], 422);
+        }
+        $comment = CommantVideo::create([
+            'video_id' => $video->id,
+            'user_id' => auth()->id(),
+            'comment' => $request->comment,
+        ]);
+        return response()->json([
+            'success' => true,
+            'comment' => $comment,
+        ]);
+
     }
 }

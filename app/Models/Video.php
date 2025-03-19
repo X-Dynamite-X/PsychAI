@@ -14,7 +14,7 @@ class Video extends Model
         'url',
         'image',
         'category_id',
-        'user_id'
+        'user_id',
     ];
 
     public function category()
@@ -26,5 +26,8 @@ class Video extends Model
     {
         return $this->belongsTo(User::class);
     }
+    public function comments()
+    {
+        return $this->hasMany(CommantVideo::class);
+    }
 }
-
