@@ -13,6 +13,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             RoleSeeder::class,
             CategoriesSeeder::class,
+            SpecialtySeeder::class,
         ]);
 
         // إنشاء المستخدمين الأساسيين
@@ -59,3 +60,4 @@ class DatabaseSeeder extends Seeder
         ]);
     }
 }
+

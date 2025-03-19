@@ -15,10 +15,12 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('category_id')->constrained()->onDelete('cascade');
-            $table->text('description');
-            $table->text('Cost')->nullable();
-            $table->text('live');
-            $table->text('phone')->nullable();
+            $table->string('experience')->nullable();;
+            $table->string('sessions_count')->nullable();
+            $table->text('description')->nullable();
+            $table->text('location')->nullable();
+            $table->string('cost')->nullable();
+            $table->string('phone')->nullable();
             $table->timestamps();
         });
     }

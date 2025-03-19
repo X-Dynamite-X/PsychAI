@@ -182,14 +182,14 @@
     <div class="specialists-grid">
         @foreach($specialists as $specialist)
         <div class="specialist-card">
-            <img src="{{ $specialist->image }}" alt="{{ $specialist->name }}" class="specialist-image">
+            <img src="https://ui-avatars.com/api/?name={{ urlencode($specialist->user->name) }}&background=random"  alt="{{ $specialist->user->name }}" class="specialist-image">
             <div class="specialist-info">
-                <h2 class="specialist-name">{{ $specialist->name }}</h2>
+                <h2 class="specialist-name">{{ $specialist->user->name }}</h2>
                 <h3 class="specialist-title">{{ $specialist->title }}</h3>
-                
+
                 <div class="specialties-tags">
                     @foreach($specialist->specialties as $specialty)
-                    <span class="specialty-tag">{{ $specialty }}</span>
+                    <span class="specialty-tag">{{ $specialty->name }}</span>
                     @endforeach
                 </div>
 
@@ -202,11 +202,11 @@
                     <div class="stat-label">سنوات الخبرة</div>
                 </div>
                 <div class="stat-item">
-                    <div class="stat-value">{{ $specialist->sessions_count }}</div>
+                    <div class="stat-value">{{ $specialist->sessions->count() }}</div>
                     <div class="stat-label">جلسة</div>
                 </div>
                 <div class="stat-item">
-                    <div class="stat-value">{{ $specialist->rating }}</div>
+                    <div class="stat-value">{{ $specialist->reviews()->avg('rating') ?? 0 }}</div>
                     <div class="stat-label">التقييم</div>
                 </div>
             </div>

@@ -46,9 +46,7 @@
                 </tr>
             </thead>
             <tbody id="usersTableBody">
-
                 @include('partials.users.users-table', ['users' => $users])
-
             </tbody>
         </table>
     </div>

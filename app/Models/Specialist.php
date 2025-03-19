@@ -8,11 +8,12 @@ class Specialist extends Model
 {
     protected $fillable = [
         'description',
-        'Cost',
-        'live',
+        'cost',
+        'location',
         'phone',
         'user_id',
         "category_id",
+        "experience",
     ];
 
     public function user()
