@@ -153,7 +153,12 @@
 <div class="article-container">
     <div class="article-header">
         <h1 class="article-title">{{ $article->title }}</h1>
-        <span class="article-category">{{ $article->category->name }}</span>
+
+        <span class="article-category">
+            <a href="{{ route('articles.category', $article->category->id) }}" class="hover:text-green-600">
+            {{ $article->category->name }}
+            </a>
+        </span>
     </div>
 
     @if ($article->image)

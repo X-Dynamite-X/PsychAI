@@ -146,7 +146,9 @@
     <div class="video-details">
         <div class="flex items-center justify-between mb-4">
             <span class="category-badge">
+                <a href="{{ route('video.category', $video->category->id) }}" class="hover:text-green-600">
                 {{ $video->category->name }}
+                </a>
             </span>
 
             @if(auth()->id() === $video->user_id)
