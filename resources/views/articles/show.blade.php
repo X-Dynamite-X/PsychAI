@@ -190,7 +190,7 @@
         @endauth
 
         <div class="comments-list">
-            @forelse($article->commants as $comment)
+            @forelse($article->comments as $comment)
                 <div class="comment-card">
                     <div class="comment-header">
                         <span class="comment-author">{{ $comment->user->name }}</span>

@@ -10,7 +10,7 @@ class CommantVideo extends Model
     protected $fillable = [
         'video_id',
         'user_id',
-        'comment',
+        'commant',
     ];
         public function video()
     {

@@ -173,7 +173,7 @@ class VideoController extends Controller
     }
     public function storeComment(Request $request, Video $video ){
         $validator = Validator::make($request->all(), [
-            'comment' => 'required|string',
+            'commant' => 'required|string',
         ]);
         if ($validator->fails()) {
             return response()->json([
@@ -181,14 +181,14 @@ class VideoController extends Controller
                 'errors' => $validator->errors()
             ], 422);
         }
-        $comment = CommantVideo::create([
+        $commant = CommantVideo::create([
             'video_id' => $video->id,
             'user_id' => auth()->id(),
-            'comment' => $request->comment,
+            'commant' => $request->commant,
         ]);
         return response()->json([
             'success' => true,
-            'comment' => $comment,
+            'commant' => $commant,
         ]);
 
     }

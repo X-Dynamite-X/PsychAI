@@ -211,7 +211,7 @@ class ArticleController extends Controller
     public function storeComment(Request $request , Article $article)
     {
         $validator = Validator::make($request->all(), [
-            'comment' => 'required|string',
+            'commant' => 'required|string',
         ]);
         if ($validator->fails()) {
             return response()->json([
@@ -219,14 +219,14 @@ class ArticleController extends Controller
                 'errors' => $validator->errors()
             ], 422);
         }
-        $comment = CommantArticle::create([
+        $commant = CommantArticle::create([
             'article_id' => $article->id,
             'user_id' => auth()->id(),
-            'comment' => $request->comment,
+            'commant' => $request->commant,
         ]);
         return response()->json([
             'success' => true,
-            'comment' => $comment,
+            'commant' => $commant,
         ]);
     }
 }

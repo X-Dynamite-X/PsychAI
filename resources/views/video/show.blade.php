@@ -196,7 +196,7 @@
             <form action="{{ route('video.comment.store', $video) }}" method="POST" class="comment-form mb-8">
                 @csrf
                 <textarea
-                    name="comment"
+                    name="commant"
                     placeholder="أضف تعليقك هنا..."
                     class="focus:border-green-500 focus:ring-1 focus:ring-green-500"
                     required
@@ -223,7 +223,7 @@
                         <span class="comment-author">{{ $comment->user->name }}</span>
                         <span class="comment-date">{{ $comment->created_at->diffForHumans() }}</span>
                     </div>
-                    <p class="comment-content">{{ $comment->comment }}</p>
+                    <p class="comment-content">{{ $comment->commant }}</p>
                 </div>
             @empty
                 <div class="text-center text-gray-500 py-8">
