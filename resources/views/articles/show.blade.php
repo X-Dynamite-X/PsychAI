@@ -190,18 +190,19 @@
         @endauth
 
         <div class="comments-list">
-            @foreach($article->comments as $commant)
+            @forelse($article->commants as $commant)
                 <div class="comment-card">
                     <div class="comment-header">
                         <span class="comment-author">{{ $commant->user->name }}</span>
-                        <span class="comment-date">{{ $comment->created_at->diffForHumans() }}</span>
+                        <span class="comment-date">{{ $commant->created_at->diffForHumans() }}</span>
                     </div>
                     <div class="comment-content">
                         {{ $commant->commant }}
                     </div>
                 </div>
-            @endforeach
+            @empty
                 <p class="text-center text-gray-600">لا توجد تعليقات بعد. كن أول من يعلق!</p>
+            @endforelse
         </div>
     </div>
 
@@ -229,5 +230,6 @@
     </div>
 </div>
 @endsection
+
 
 

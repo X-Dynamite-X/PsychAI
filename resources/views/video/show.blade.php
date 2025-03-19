@@ -217,7 +217,7 @@
         @endauth
 
         <div class="comments-list">
-            @forelse($video->comments as $comment)
+            @forelse($video->commants as $comment)
                 <div class="comment-card">
                     <div class="comment-header">
                         <span class="comment-author">{{ $comment->user->name }}</span>

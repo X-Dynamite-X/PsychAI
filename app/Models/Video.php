@@ -26,7 +26,7 @@ class Video extends Model
     {
         return $this->belongsTo(User::class);
     }
-    public function comments()
+    public function commants()
     {
         return $this->hasMany(CommantVideo::class);
     }
