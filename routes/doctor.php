@@ -32,3 +32,5 @@ Route::get('/video', [VideoController::class, 'index'])->name('video.index');
 Route::get('/video/{video}', [VideoController::class, 'show'])->name('video.show');
 Route::get('/video/category/{category}', [VideoController::class, 'category'])->name('video.category');
 Route::post('/video/{video}/comment', [VideoController::class, 'storeComment'])->name('video.comment.store');
+
+ 

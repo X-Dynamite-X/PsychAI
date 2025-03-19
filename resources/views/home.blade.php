@@ -13,7 +13,6 @@
 
         .logo img {
             width: 200px;
-            /* ضبط حجم الشعار */
             height: auto;
         }
 
@@ -82,11 +81,9 @@
             margin-top: 10px;
         }
 
-        /* category */
-
-
+        /* التصنيفات */
         .category-section {
-            text-align: left;
+            text-align: right;
             width: 60%;
             margin: 30px auto;
             padding: 20px 25px;
@@ -155,27 +152,27 @@
         <div class="w-full max-w-4xl px-4">
             <div class="flex justify-center items-center gap-8 mb-12">
                 <div class="logo">
-                    <img src="{{ asset('logo_1.svg') }}" alt="Psych AI Logo">
+                    <img src="{{ asset('logo_1.svg') }}" alt="شعار Psych AI">
                 </div>
 
-                <div class="subtitle text-left">
-                    Your mental health AI companion, <br>
-                    <em>through <strong>thick & thin</strong>.</em>
+                <div class="subtitle text-right">
+                    رفيقك الذكي للصحة النفسية، <br>
+                    <em>معك في <strong>السراء والضراء</strong>.</em>
                 </div>
             </div>
 
             <div class="container mx-auto">
                 <a href="{{ route('chat') }}">
                     <div class="box">
-                        Talk with AI</div>
+                        فضفض معنا
+                    </div>
                 </a>
                 <a href="#category">
                     <div class="box">
-                        View Categories
+                        عرض التصنيفات
                     </div>
                 </a>
             </div>
-
 
         </div>
         <div class="mt-30">
@@ -185,3 +182,4 @@
         </div>
     </div>
 @endsection
+

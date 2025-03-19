@@ -9,7 +9,9 @@
     <link rel="icon" type="image/svg+xml" href="{{ asset('logo_1.svg') }}">
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@200;300;400;500;700;800;900&display=swap');
+</style>
 </head>
 
 <body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100">

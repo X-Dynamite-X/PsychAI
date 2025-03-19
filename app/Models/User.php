@@ -55,4 +55,13 @@ class User extends Authenticatable
     {
         return $this->hasMany(Message::class, 'sender_id');
     }
+    public function specialist()
+    {
+        return $this->hasOne(Specialist::class);
+    }
+    public function bookings()
+    {
+        return $this->hasMany(Booking::class);
+    }
 }
+

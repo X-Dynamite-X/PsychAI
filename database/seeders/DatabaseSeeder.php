@@ -8,29 +8,28 @@ use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
-    /**
-     * Seed the application's database.
-     */
     public function run(): void
     {
-
         $this->call([
             RoleSeeder::class,
             CategoriesSeeder::class,
         ]);
 
+        // إنشاء المستخدمين الأساسيين
         $user = User::create([
             'name' => 'dynamite',
             'email' => 'dynamite@gmail.com',
             'password' => Hash::make('123'),
         ]);
         $user->assignRole(['admin', 'doctor']);
+
         $user = User::create([
             'name' => 'admin',
             'email' => 'admin@gmail.com',
             'password' => Hash::make('123'),
         ]);
         $user->assignRole('admin');
+
         $user = User::create([
             'name' => 'doctor',
             'email' => 'doctor@gmail.com',
@@ -38,19 +37,25 @@ class DatabaseSeeder extends Seeder
         ]);
         $user->assignRole('doctor');
 
+        // إنشاء مستخدمين إضافيين
         for ($i = 0; $i < 100; $i++) {
             $user = User::create([
                 'name' => "user_".($i+1),
                 'email' => "user_".($i+1)."@gmail.com",
-                'password' => Hash::make(value: '123'),
+                'password' => Hash::make('123'),
             ]);
-            if($i%10 ===0){
-
+            if($i % 10 === 0){
                 $user->syncRoles("doctor");
-            }else{
+            } else {
                 $user->syncRoles("user");
-
             }
         }
+
+        // تشغيل باقي السيدرز
+        $this->call([
+            SpecialistSeeder::class,
+            SessionDocSeeder::class,
+            BookingSeeder::class,
+        ]);
     }
 }

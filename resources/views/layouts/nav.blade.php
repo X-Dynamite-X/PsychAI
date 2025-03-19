@@ -13,7 +13,7 @@
                 <a href="{{ route('home') }}" class="nav-link">الرئيسية</a>
                 <a href="{{ route('video.index') }}" class="nav-link">الفيديوهات</a>
                 <a href="{{ route('articles.index') }}" class="nav-link">المقالات</a>
-                <a href="#" class="nav-link">المتخصصون</a>
+                <a href="{{ route('Specialist.index') }}" class="nav-link">المتخصصون</a>
             </div>
 
             <div class="action-buttons">
@@ -41,7 +41,7 @@
         <a href="{{ route('home') }}">الرئيسية</a>
         <a href="{{ route('video.index') }}">الفيديوهات</a>
         <a href="{{ route('articles.index') }}">المقالات</a>
-        <a href="#">المتخصصون</a>
+        <a href="{{ route('Specialist.index') }}">المتخصصون</a>
         <a href="{{ route('chat') }}" class="btn-primary">فضفض </a>
         @auth
             <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"

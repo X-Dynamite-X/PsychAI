@@ -11,13 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('commants', function (Blueprint $table) {
+        Schema::create('specialists', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->text('text');
-            $table->unsignedBigInteger('post_id');
-            $table->string('type_post');
-            $table->foreign('post_id')->references('id')->on('videos')->onDelete('cascade');
+            $table->foreignId('category_id')->constrained()->onDelete('cascade');
+            $table->text('description');
+            $table->text('Cost')->nullable();
+            $table->text('live');
+            $table->text('phone')->nullable();
             $table->timestamps();
         });
     }
@@ -27,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('commants');
+        Schema::dropIfExists('specialists');
     }
 };
