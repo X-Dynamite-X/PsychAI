@@ -38,7 +38,11 @@ class ArticleController extends Controller
 
         return view('articles.index', compact('articles', 'categories'));
     }
-
+    public function category(Category $category)
+    {
+        $articles = $category->articles()->latest()->paginate(10);
+        return view('articles.index', compact('articles'));
+    }
     /**
      * عرض صفحة إضافة مقال جديد.
      *

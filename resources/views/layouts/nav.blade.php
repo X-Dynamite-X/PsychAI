@@ -7,25 +7,25 @@
 
             <div class="nav-links">
                 @role('admin')
-                    <a href="{{ route('admin.users') }}" class="nav-link">Admin</a>
+                    <a href="{{ route('admin.users') }}" class="nav-link">لوحة التحكم</a>
                 @endrole
 
-                <a href="{{ route('home') }}" class="nav-link">Home</a>
-                <a href="{{ route('video.index') }}" class="nav-link">Video</a>
-                <a href="{{ route('articles.index') }}" class="nav-link">Articles</a>
-                <a href="#" class="nav-link">Specialists</a>
+                <a href="{{ route('home') }}" class="nav-link">الرئيسية</a>
+                <a href="{{ route('video.index') }}" class="nav-link">الفيديوهات</a>
+                <a href="{{ route('articles.index') }}" class="nav-link">المقالات</a>
+                <a href="#" class="nav-link">المتخصصون</a>
             </div>
 
             <div class="action-buttons">
-                <a href="{{ route('chat') }}" class="btn-primary">Chat with AI</a>
+                <a href="{{ route('chat') }}" class="btn-primary">فضفض </a>
                 @auth
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                         @csrf
                     </form>
                     <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
-                        class="btn-secondary">Logout</a>
+                        class="btn-secondary">تسجيل الخروج</a>
                 @else
-                    <a href="{{ route('login') }}" class="btn-secondary">Login</a>
+                    <a href="{{ route('login') }}" class="btn-secondary">تسجيل الدخول</a>
                 @endauth
             </div>
 
@@ -38,16 +38,17 @@
     </div>
 
     <div class="mobile-menu">
-        <a href="{{ route('home') }}">Home</a>
-        <a href="{{ route('video.index') }}">Video</a>
-        <a href="{{ route('articles.index') }}">Articles</a>
-        <a href="#">Specialists</a>
-        <a href="{{ route('chat') }}" class="btn-primary">Chat with AI</a>
+        <a href="{{ route('home') }}">الرئيسية</a>
+        <a href="{{ route('video.index') }}">الفيديوهات</a>
+        <a href="{{ route('articles.index') }}">المقالات</a>
+        <a href="#">المتخصصون</a>
+        <a href="{{ route('chat') }}" class="btn-primary">فضفض </a>
         @auth
             <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
-                class="btn-secondary">Logout</a>
+                class="btn-secondary">تسجيل الخروج</a>
         @else
-            <a href="{{ route('login') }}" class="btn-secondary">Login</a>
+            <a href="{{ route('login') }}" class="btn-secondary">تسجيل الدخول</a>
         @endauth
     </div>
 </nav>
+

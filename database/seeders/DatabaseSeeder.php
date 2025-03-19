@@ -41,7 +41,7 @@ class DatabaseSeeder extends Seeder
         for ($i = 0; $i < 100; $i++) {
             $user = User::create([
                 'name' => "user_".($i+1),
-                'email' => "user_".($i+1)."@gmial.com",
+                'email' => "user_".($i+1)."@gmail.com",
                 'password' => Hash::make(value: '123'),
             ]);
             if($i%10 ===0){

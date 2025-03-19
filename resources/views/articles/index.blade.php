@@ -3,6 +3,7 @@
     <div class="container mx-auto px-4 py-8">
         <!-- Header Section -->
           @if (!$articles->isEmpty())
+          @role(['doctor', 'admin'])
         <div class="flex justify-between items-center mb-8">
             <h1 class="text-3xl font-bold text-gray-800">المقالات</h1> <a href="{{ route('articles.create') }}"
                 class="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-lg transition duration-300 flex items-center">
@@ -13,6 +14,7 @@
                 </svg>
                 إضافة مقال جديد </a>
         </div>
+        @endrole()
         @endif
         <!-- Articles Grid -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -27,12 +29,15 @@
                     <div class="p-6">
                         <div class="flex items-center mb-4">
                             <span class="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm">
+                                <a href="{{ route('articles.category', $article->category->id) }}"
+                                   class="hover:text-green-600">
                                 {{ $article->category->name }}
+                                </a>
                             </span>
                         </div>
                         <h2 class="text-xl font-bold text-gray-800 mb-3">{{ $article->title }}</h2>
-                        <p class="text-gray-600 mb-4 line-clamp-3">
-                            {{ $article->description }} </p>
+
+
                         <div class="flex justify-between items-center">
                             <a href="{{ route('articles.show', $article->id) }}"
                                 class="text-green-600 hover:text-green-700 font-medium flex items-center">
@@ -43,6 +48,8 @@
                                         clip-rule="evenodd" />
                                 </svg>
                             </a>
+                            @if (auth()->id() === $article->user_id)
+
                             <div class="flex space-x-2 rtl:space-x-reverse"> <a
                                     href="{{ route('articles.edit', $article->id) }}"
                                     class="text-blue-600 hover:text-blue-800"> <svg xmlns="http://www.w3.org/2000/svg"
@@ -64,6 +71,8 @@
                                         </svg> </button>
                                 </form>
                             </div>
+                            @endif
+
                         </div>
                     </div>
                 </div>
@@ -82,6 +91,7 @@
                 <h3 class="mt-2 text-sm font-medium text-gray-900">لا توجد مقالات</h3>
                 <p class="mt-1 text-sm text-gray-500">ابدأ بإضافة مقال جديد</p>
                 <div class="mt-6">
+                    @role(['doctor', 'admin'])
                     <a href="{{ route('articles.create') }}"
                         class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700">
                         <svg class="-ml-1 mr-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
@@ -91,6 +101,7 @@
                                 clip-rule="evenodd" />
                         </svg>
                         إضافة مقال جديد </a>
+                    @endrole()
                 </div>
             </div>
         @endif

@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Video;
-use App\Models\Category;
-use Illuminate\Http\Request;
+use App\Models\{Video, Category};
+ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
@@ -15,7 +14,12 @@ class VideoController extends Controller
         $videos = Video::with(['category', 'user'])->latest()->paginate(10);
         return view('video.index', compact('videos'));
     }
+    public function category(Category $category)
+    {
+        $videos = $category->videos()->latest()->paginate(10);
 
+        return view('video.index', compact('videos'));
+    }
     public function create()
     {
         $categories = Category::all();
@@ -158,10 +162,8 @@ class VideoController extends Controller
 
             $video->delete();
 
-            return response()->json([
-                'success' => true,
-                'message' => 'Video deleted successfully'
-            ]);
+            return redirect()->route('video.index')
+                ->with('success', 'تم حذف الفيديو بنجاح');
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,

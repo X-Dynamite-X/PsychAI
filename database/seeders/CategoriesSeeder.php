@@ -14,20 +14,20 @@ class CategoriesSeeder extends Seeder
         //
         $categories = [
             [
-                'name' => 'Anxiety',
-                'description' => 'A mental health condition characterized by excessive worry, fear, or tension.',
+                'name' => 'القلق',
+                'description' => 'حالة صحية نفسية تتميز بالقلق المفرط والخوف والتوتر.',
             ],
             [
-                    'name' => 'Depression',
-                    'description' => 'A mood disorder marked by persistent feelings of sadness and loss of interest.',
+                'name' => 'الاكتئاب',
+                'description' => 'اضطراب مزاجي يتميز بمشاعر مستمرة من الحزن وفقدان الاهتمام بالأنشطة.',
             ],
             [
-                'name' => 'Burnout',
-                'description' => 'A state of emotional, physical, and mental exhaustion caused by prolonged stress.',
+                'name' => 'الإرهاق',
+                'description' => 'حالة من الإرهاق العاطفي والجسدي والعقلي الناتج عن الضغط المستمر.',
             ],
             [
-                'name' => 'Impostor Syndrome',
-                'description' => 'A psychological pattern where individuals doubt their abilities and fear being exposed as frauds.',
+                'name' => 'متلازمة المحتال',
+                'description' => 'نمط نفسي يشكك فيه الأفراد في قدراتهم ويخشون من اكتشافهم كمحتالين رغم كفاءتهم.',
             ],
         ];
         foreach ($categories as $category) {

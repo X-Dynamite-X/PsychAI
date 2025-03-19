@@ -27,3 +27,4 @@ Route::middleware('guest')->group(function () {
 
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('/auth/check', [AuthController::class, 'check'])->name('auth.check');
+ 
