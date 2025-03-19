@@ -47,7 +47,7 @@ class VideoController extends Controller
             }
 
             $data['user_id'] = auth()->id();
-            $video =Video::create($data);
+            $video = Video::create($data);
 
 
             return redirect()->route('video.show', $video->id)
@@ -126,10 +126,8 @@ class VideoController extends Controller
 
             $video->update($data);
 
-            return response()->json([
-                'success' => true,
-                'message' => 'Video updated successfully'
-            ]);
+            return redirect()->route('video.show', $video->id)
+                ->with('success', 'تم تحديث الفيديو بنجاح');
         } catch (\Exception $e) {
             // Clean up newly uploaded image if update fails
             if (isset($data['image'])) {

@@ -88,7 +88,7 @@
         </a>
     </div>
 
-    <form id="videoForm" class="space-y-6" enctype="multipart/form-data">
+    <form id="videoForm" class="space-y-6" method="POST" action="{{ route('video.update', $video) }}" enctype="multipart/form-data" >
         @csrf
         @method('PUT')
 

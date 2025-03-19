@@ -122,8 +122,8 @@
         @forelse ($videos as $video)
             <div class="video-card">
                 <div class="video-thumbnail">
-                    @if($video->thumbnail)
-                        <img src="{{ Storage::url($video->thumbnail) }}"
+                    @if($video->image)
+                        <img src="{{ asset('storage/' . $video->image) }}"
                              alt="{{ $video->title }}"
                              class="absolute h-full w-full object-cover">
                     @else
