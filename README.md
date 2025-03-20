@@ -1,8 +1,17 @@
+<div align="center">
+
 # Psych AI - منصة الدعم النفسي الذكية 🧠
+# Psych AI - Smart Mental Health Support Platform 🧠
 
-<div dir="rtl">
+[العربية](#arabic) | [English](#english)
 
-## نظرة عامة 🌟
+</div>
+
+<div dir="rtl" id="arabic">
+
+# النسخة العربية 🌟
+
+## نظرة عامة
 Psych AI هي منصة مبتكرة تجمع بين الذكاء الاصطناعي والدعم النفسي، مصممة لتقديم المساعدة والدعم النفسي باللغة العربية. المنصة تستخدم تقنية Google Gemini AI لتوفير تجربة محادثة طبيعية وفعالة.
 
 ## المميزات الرئيسية ✨
@@ -21,7 +30,7 @@ Psych AI هي منصة مبتكرة تجمع بين الذكاء الاصطنا�
 - Composer
 - Google Gemini API Key
 
-## التثبيت 📥
+## خطوات التثبيت 📥
 
 1. **استنساخ المشروع**
 ```bash
@@ -45,31 +54,67 @@ cp .env.example .env
 php artisan key:generate
 ```
 
-5. **تكوين قاعدة البيانات**
+## المساهمة 🤝
+نرحب بمساهماتكم! يرجى اتباع الخطوات التالية:
+1. Fork المشروع
+2. إنشاء فرع للميزة الجديدة
+3. تقديم Pull Request
+
+## الترخيص 📄
+ 
+
+</div>
+
+---
+
+<div id="english">
+
+# English Version 🌟
+
+## Overview
+Psych AI is an innovative platform that combines artificial intelligence with mental health support, designed to provide psychological assistance in Arabic. The platform utilizes Google Gemini AI technology to deliver a natural and effective conversational experience.
+
+## Key Features ✨
+- **Smart Chat**: Interactive conversations with an AI assistant that understands your psychological needs
+- **Expert Articles**: Trusted mental health content from certified professionals
+- **Educational Videos**: Visual content helping understand mental health issues
+- **Comment System**: Community interaction with content and articles
+- **Admin Dashboard**: Complete content and user management
+- **Multi-Role Support**: Different user roles (admin, doctor, regular user)
+
+## Technical Requirements 🛠
+- PHP 8.2 or higher
+- Laravel 12.x
+- Node.js & NPM
+- MySQL/PostgreSQL
+- Composer
+- Google Gemini API Key
+
+## Installation Steps 📥
+
+1. **Clone the Project**
 ```bash
-php artisan migrate --seed
+git clone https://github.com/yourusername/psych-ai.git
+cd psych-ai
 ```
 
-6. **بناء الأصول**
+2. **Install PHP Dependencies**
 ```bash
-npm run build
+composer install
 ```
 
-7. **تشغيل المشروع**
+3. **Install Node.js Dependencies**
 ```bash
-php artisan serve
+npm install
 ```
 
-## التكوين ⚙️
-
-### إعداد Gemini AI
-1. احصل على مفتاح API من [Google AI Studio](https://makersuite.google.com)
-2. أضف المفتاح إلى ملف `.env`:
-```env
-GEMINI_API_KEY=your_api_key_here
+4. **Setup Environment File**
+```bash
+cp .env.example .env
+php artisan key:generate
 ```
 
-## الهيكل التنظيمي للمشروع 📁
+## Project Structure 📁
 ```
 ├── app/
 │   ├── Http/
@@ -82,22 +127,31 @@ GEMINI_API_KEY=your_api_key_here
 └── routes/
 ```
 
-## المساهمة 🤝
-نرحب بمساهماتكم! يرجى اتباع الخطوات التالية:
-1. Fork المشروع
-2. إنشاء فرع للميزة الجديدة
-3. تقديم Pull Request
+## Configuration ⚙️
 
-## الترخيص 📄
-هذا المشروع مرخص تحت [MIT License](LICENSE)
+### Setting up Gemini AI
+1. Get your API key from [Google AI Studio](https://makersuite.google.com)
+2. Add the key to your `.env` file:
+```env
+GEMINI_API_KEY=your_api_key_here
+```
 
-## الشكر والتقدير 💝
-- شكر خاص لفريق Google Gemini AI
-- جميع المساهمين في المشروع
-- مجتمع Laravel
+## Contributing 🤝
+We welcome contributions! Please follow these steps:
+1. Fork the project
+2. Create a feature branch
+3. Submit a Pull Request
 
-## التواصل 📞
-- للأسئلة والاستفسارات: [your-email@example.com]
-- تابعنا على تويتر: [@PsychAI]
+## License 📄
+This project is licensed under the [MIT License](LICENSE)
+
+## Acknowledgments 💝
+- Special thanks to Google Gemini AI team
+- All project contributors
+- Laravel community
+
+## Contact 📞
+- For questions and inquiries: [abdmoklss@gmail.com]
+
 
 </div>
