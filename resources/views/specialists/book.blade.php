@@ -90,8 +90,8 @@
             @endif
 
             <!-- زر الحجز -->
-            <button type="submit"
-                    class="w-full bg-green-600 text-white py-3 px-6 rounded-lg hover:bg-green-700 transition duration-200">
+            <button type="submit" disabled
+                    class="w-full bg-green-600 text-white py-3 px-6 rounded-lg hover:bg-green-700 transition duration-200 cursor-not-allowed">
                 تأكيد الحجز
             </button>
         </form>

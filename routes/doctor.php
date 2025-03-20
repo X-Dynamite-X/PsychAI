@@ -2,10 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\{ArticleController, VideoController};
-// use App\Http\Controllers\VideoController;
-
-
-
 
 Route::group(['middleware' => ['auth', 'role:doctor||admin']], function () {
 
