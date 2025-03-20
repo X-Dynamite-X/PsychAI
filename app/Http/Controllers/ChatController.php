@@ -56,17 +56,18 @@ class ChatController extends Controller
     public function store(Request $request)
     {
         try {
-            $message = $request->input('message');
-            if (empty($message)) {
-                return $this->errorResponse('Message cannot be empty');
-            }
+        $message = $request->input('message');
+        if (empty($message)) {
+            return $this->errorResponse('Message cannot be empty');
+        }
 
-             $userId = auth()->check() ? auth()->id() : session()->getId();
+        $userId = auth()->check() ? auth()->id() : session()->getId();
 
             // تحديد الغرفة أو استخدام guest للزوار
             if (auth()->check()) {
                 if ($request->input('room_id') !== "newRoom") {
                     $roomChat = RoomChat::find($request->input('room_id'));
+
                     $newRoom = false;
                 } else {
                     $roomChat = RoomChat::create([
@@ -91,6 +92,15 @@ class ChatController extends Controller
                     'message_text' => $message,
                     'reseve_text' => $aiResponse
                 ]);
+                return response()->json([
+                    'success' => true,
+                    'message' => $aiResponse,
+
+                    "room_name" => $roomChat->room_name,
+                    "room_id" => $roomChat->id,
+
+                ]);
+
             } else {
                 $this->cacheMessage($userId, $message, $aiResponse);
             }
@@ -99,8 +109,7 @@ class ChatController extends Controller
                 'success' => true,
                 'message' => $aiResponse,
 
-                "room_name" => $roomChat->room_name,
-                "room_id" => $roomChat->id,
+           
 
             ]);
         } catch (\Exception $e) {
