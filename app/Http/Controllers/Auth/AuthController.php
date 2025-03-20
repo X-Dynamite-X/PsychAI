@@ -33,7 +33,7 @@ class AuthController extends Controller
 
             return response()->json([
                 'success' => true,
-                'redirect' => url('/')
+                'redirect' => redirect()->intended('/')->getTargetUrl()
             ]);
         }
 
@@ -65,13 +65,14 @@ class AuthController extends Controller
             'password' => Hash::make($validated['password'])
         ]);
 
+        $user->assignRole('user');
 
 
         Auth::login($user);
 
         return response()->json([
             'success' => true,
-            'redirect' => url('/')
+            'redirect' => redirect()->intended('/')->getTargetUrl()
         ]);
     }
 
