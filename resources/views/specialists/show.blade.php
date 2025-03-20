@@ -213,7 +213,11 @@
                     <h3 class="section-title">التخصصات</h3>
                     <div class="specialties-tags">
                         @foreach ($specialist->specialties as $specialty)
-                            <span class="specialty-tag">{{ $specialty->name }}</span>
+                            <span class="specialty-tag">
+                                <a href="{{ route('Specialist.specialty', $specialty->id) }}">
+                                {{ $specialty->name }}
+                                </a>
+                            </span>
                         @endforeach
                     </div>
                 </div>

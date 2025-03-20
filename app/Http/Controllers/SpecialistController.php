@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Specialist;
+use App\Models\{Specialist, Specialty};
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 
@@ -19,6 +19,13 @@ class SpecialistController extends Controller
 
         return view('specialists.index', compact('specialists'));
     }
+    public function indexSpecialist(Specialty $specialty)
+    {
+
+        $specialists=$specialty->specialists()->with("user")->get();
+        return view('specialists.index', compact('specialists'));
+    }
+
 
     /**
      * عرض صفحة المختص.
