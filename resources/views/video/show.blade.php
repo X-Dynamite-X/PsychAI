@@ -168,10 +168,11 @@
                 <h2 class="text-xl font-semibold text-gray-900 mb-4">Related Videos</h2>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                     @foreach($relatedVideos as $relatedVideo)
+                        <a href="{{ route('video.show', $relatedVideo) }}" class="block">
                         <div class="bg-white rounded-lg shadow-sm overflow-hidden">
                             <div class="relative pb-[56.25%]">
-                                @if($relatedVideo->thumbnail)
-                                    <img src="{{ Storage::url($relatedVideo->thumbnail) }}"
+                                @if($relatedVideo->image)
+                                    <img src="{{ asset('storage/' . $relatedVideo->image) }}"
                                          alt="{{ $relatedVideo->title }}"
                                          class="absolute h-full w-full object-cover">
                                 @else
@@ -184,6 +185,7 @@
                                 <h3 class="font-semibold text-gray-900">{{ $relatedVideo->title }}</h3>
                             </div>
                         </div>
+                        </a>
                     @endforeach
                 </div>
             </div>
