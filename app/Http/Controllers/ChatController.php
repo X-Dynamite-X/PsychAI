@@ -19,13 +19,14 @@ class ChatController extends Controller
     public function __construct()
     {
         $this->apiKey = config('gemini.api_key');
-        $this->baseUrl = config('gemini.base_url') . $this->apiKey;
+        $this->baseUrl = config('gemini.base_url');
 
         $this->client = new Client([
             'timeout' => 30.0,
             'headers' => [
                 'Content-Type' => 'application/json',
                 'Accept' => 'application/json',
+                'X-goog-api-key' => $this->apiKey,
             ]
         ]);
     }
@@ -109,7 +110,7 @@ class ChatController extends Controller
                 'success' => true,
                 'message' => $aiResponse,
 
-           
+
 
             ]);
         } catch (\Exception $e) {
