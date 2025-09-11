@@ -178,7 +178,7 @@
         <h2 class="comments-title">التعليقات</h2>
 
         @auth
-            <form action="{{ route('articles.comment.store', $article) }}" method="POST" class="comment-form">
+            <form action="/articles/{{ $article->id }}/comment" method="POST" class="comment-form">
                 @csrf
                 <textarea name="commant"
                           class="comment-input"

@@ -62,6 +62,8 @@ $(document).ready(function() {
                 showAlert('تم إضافة تعليقك بنجاح', 'success');
             },
             error: function(xhr) {
+                console.log($(this).attr('action'));
+
                 showAlert('حدث خطأ أثناء إضافة التعليق', 'error');
             },
             complete: function() {

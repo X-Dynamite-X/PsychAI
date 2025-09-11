@@ -8,8 +8,8 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="icon" type="image/svg+xml" href="{{ asset('logo_1.svg') }}">
 
-    <style>
-    @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@200;300;400;500;700;800;900&display=swap');
+    <style nonce="randomString">
+        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@200;300;400;500;700;800;900&display=swap');
 
 
         * {
@@ -145,28 +145,32 @@
             color: white;
         }
 
-.nav-link {
-	color: #81AD74;
-	font-size: 16px;
-}
-.btn-primary {
-	background-color: #81AD74;
-	color: #FBE9D6;
-	font-size: 16px;
-}
-.nav-content {
-	margin: 12px;
-	height: auto;
-	align-items: end;
-}
-.logo-section img {
-	height: 96px;
-}
-.btn-secondary {
-	border: 2px solid #81AD74;
-	color: #81AD74;
-	font-size: 16px;
-}
+        .nav-link {
+            color: #81AD74;
+            font-size: 16px;
+        }
+
+        .btn-primary {
+            background-color: #81AD74;
+            color: #FBE9D6;
+            font-size: 16px;
+        }
+
+        .nav-content {
+            margin: 12px;
+            height: auto;
+            align-items: end;
+        }
+
+        .logo-section img {
+            height: 96px;
+        }
+
+        .btn-secondary {
+            border: 2px solid #81AD74;
+            color: #81AD74;
+            font-size: 16px;
+        }
 
         @media (max-width: 768px) {
 
@@ -189,7 +193,7 @@
         }
     </style>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{{asset('/asset/css/all_min.css')}}">
 
 
     @yield('styles')
@@ -206,7 +210,6 @@
 
 </body>
 @yield('script')
-
 <script></script>
 
 </html>
